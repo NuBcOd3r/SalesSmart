@@ -1,0 +1,61 @@
+    .input-group {
+        display: flex;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .input-group-text {
+        background: linear-gradient(135deg, #0a58ca 0%, #084298 100%);
+        color: white;
+        border: 2px solid #0a58ca;
+        border-right: none;
+        border-radius: 8px 0 0 8px;
+        font-weight: 600;
+        padding: 12px 18px;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+    }
+
+    .input-group .form-control-custom {
+        border-radius: 0 8px 8px 0 !important;
+        flex: 1;
+    }
+
+    .input-group .form-control-custom.border-start-0 {
+        border-left: none;
+    }
+
+    .input-group .form-control-custom:focus {
+        border-color: #0a58ca;
+        border-left: 2px solid #0a58ca;
+    }
+
+    input[type="date"].form-control-custom {
+        position: relative;
+    }
+
+    input[type="date"].form-control-custom::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        color: #0a58ca;
+        font-size: 18px;
+    }
+
+    .alert-info {
+        background-color: #e3f2fd;
+        border: 2px solid #0a58ca;
+        border-radius: 8px;
+        color: #084298;
+    }
+
+    .alert-info h6 {
+        color: #0a58ca;
+        font-weight: 600;
+    }
+
+    small.text-muted {
+        display: block;
+        margin-top: 5px;
+        font-size: 13px;
+        color: #6c757d;
+    }

@@ -1,0 +1,154 @@
+<?php
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    function ShowCSS()
+    {
+        echo
+        '
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Sales Smart</title>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+            <link rel="stylesheet" href="../CSS/EstilosHome.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+            <link rel="icon" href="../Images/favicon.ico">
+            <link rel="stylesheet" href="../CSS/EstilosProveedor.css">
+            <link rel="stylesheet" href="../CSS/EstilosProducto.css">
+            <link rel="stylesheet" href="../CSS/EstilosCredito.css">
+        </head>
+        ';
+    }
+
+    function ShowJS()
+    {
+        echo
+        '
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="../JS/Navbar.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        ';
+    }
+
+    function ShowNav()
+    {
+      echo
+      '
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-basket-shopping gradient-icon mb-3"></i>
+                <h3 class="brand-title">Sales Smart</h3>
+                <button class="toggle-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="setActive(this)">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="setActive(this)">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reportes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../Principal/Home.php" class="nav-link" onclick="setActive(this)">
+                        <i class="fas fa-home"></i>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../Productos/Productos.php" class="nav-link" onclick="setActive(this)">
+                        <i class="fas fa-box"></i>
+                        <span>Inventario</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../Categorias/Categorias.php" class="nav-link" onclick="setActive(this)">
+                        <i class="fas fa-tags"></i>
+                        <span>Categorías</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../Admin/Proveedor.php" class="nav-link" onclick="setActive(this)">
+                        <i class="fas fa-truck"></i>
+                        <span>Proveedores</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../Reabastecer/Reabastecer.php" class="nav-link" onclick="setActive(this)">
+                        <i class="fas fa-truck-loading"></i>
+                        <span>Reabastecer</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../Creditos/Creditos.php" class="nav-link" onclick="setActive(this)">
+                        <i class="fas fa-users"></i>
+                        <span>Créditos</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="main-content">
+            <div class="top-navbar d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Bienvenido(a)</h4>
+
+                <div class="dropdown">
+                    <a class="dropdown-toggle text-decoration-none text-dark" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+
+                        <div class="text-center">
+                            <div class="fw-bold">
+                                BRANDON JOSUE CORELLA SANCHEZ
+                            </div>
+                            <small class="text-muted">
+                                Administrador
+                            </small>
+                        </div>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end text-start shadow">
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="CambiarContrasenna.php">
+                                <i class="fa-solid fa-key me-2"></i>
+                                Cambiar Contraseña
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center text-danger" href="Logout.php">
+                                <i class="fa-solid fa-right-from-bracket me-2"></i>
+                                Cerrar Sesión
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+                <button class="mobile-menu-btn" onclick="toggleMobileSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+      ';
+    }
+?>
+
+
+<script>
+  window.addEventListener("pageshow", function (event) 
+  {
+    if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") 
+    {
+      window.location.reload(true);
+    }
+  });
+</script>
