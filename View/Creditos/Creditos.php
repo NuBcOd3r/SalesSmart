@@ -22,7 +22,7 @@
                 href="RegistrarCredito.php">
                 <i class="fa-solid fa-plus me-2"></i>Registrar Crédito
             </a>
-            <a class="btn text-white px-4 btn-custom-danger mt-1"
+            <a class="btn text-white px-4 btn-custom-success mt-1"
                 href="ListadoCreditosPagados.php">
                 <i class="fa-solid fa-check me-2"></i>Créditos Pagados
             </a>
@@ -95,9 +95,10 @@
                                     <form method="POST" action="" style="margin:0;">
                                         <input type="hidden" name="idCredito" value="'.$credito['idCredito'].'">
                                         <button type="submit" name="btnEliminarCredito"
+                                            class="btn-eliminar-verde"
                                             title="Eliminar"
-                                            style="background:none;border:none;color:#dc3545;font-size:22px;">
-                                            <i class="fa-solid fa-eraser"></i>
+                                            style="background:none;border:none;color:#198754;font-size:22px;">
+                                            <i class="fa-solid fa-money-bill-wave"></i>
                                         </button>
                                     </form>
 

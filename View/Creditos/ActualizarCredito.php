@@ -16,7 +16,7 @@
 
     <div class="row mb-3">
         <div class="col-12 mt-4">
-            <h2 class="text-center mb-3" style="color: #2c3e50; font-weight: 700;">Actualizar Crédito  #<?php echo $idCredito; ?></h2>
+            <h2 class="text-center mb-3" style="color: #2c3e50; font-weight: 700;">Actualizar Crédito  #<?php echo $idCredito .' ;'. $datos["nombreCliente"] ?></h2>
         </div>
     </div>
 
@@ -31,11 +31,14 @@
             
             <form method="POST" action="" id="formCredito">
                 <div class="row">
+                    
+                    <input type="hidden" name="idCredito" value="<?php echo $datos['idCredito']; ?>">
+
                     <div class="col-md-6 mb-4">
                         <label for="cedula" class="form-label-custom">
                             <i class="fa-solid fa-id-card me-2"></i>Cédula del Cliente <span class="text-danger">*</span>
                         </label>
-                        <input type="text" class="form-control-custom" id="cedula" name="cedula" placeholder="0-0000-0000" required>
+                        <input type="text" class="form-control-custom" id="cedula" name="cedula" value="<?php echo $datos["cedula"] ?>" required>
                         <small class="text-muted">Formato: 1-1234-5678</small>
                     </div>
 
@@ -43,7 +46,7 @@
                         <label for="nombreCliente" class="form-label-custom">
                             <i class="fa-solid fa-user me-2"></i>Nombre del Cliente <span class="text-danger">*</span>
                         </label>
-                        <input type="text" class="form-control-custom" id="nombreCliente" name="nombreCliente" placeholder="Ingrese el nombre completo del cliente" required readOnly>
+                        <input type="text" class="form-control-custom" id="nombreCliente" name="nombreCliente" value="<?php echo $datos["nombreCliente"] ?>" required readOnly>
                     </div>
 
                     <div class="col-md-6 mb-4">
@@ -52,7 +55,7 @@
                         </label>
                         <div class="input-group">
                             <span class="input-group-text">₡</span>
-                            <input type="number" class="form-control-custom border-start-0" id="monto" name="monto" placeholder="0.00" step="0.01" min="0" required>
+                            <input type="number" class="form-control-custom border-start-0" id="monto" name="monto" value="<?php echo $datos["monto"] ?>" step="0.01" min="0" required>
                         </div>
                     </div>
 
@@ -60,16 +63,23 @@
                         <label for="fechaMaxima" class="form-label-custom">
                             <i class="fa-solid fa-calendar-check me-2"></i>Fecha Máxima de Pago <span class="text-danger">*</span>
                         </label>
-                        <input type="date" class="form-control-custom" id="fechaMaxima" name="fechaMaxima" required>
+                        <input 
+                            type="date"
+                            class="form-control-custom"
+                            id="fechaMaxima"
+                            name="fechaMaxima"
+                            value="<?= date('Y-m-d', strtotime($datos['fechaMaxima'])) ?>"
+                            required
+                        >
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-end gap-3 mt-4">
-                    <a href="ListadoCreditos.php" class="btn-form-secondary">
+                    <a href="Creditos.php" class="btn-form-secondary">
                         <i class="fa-solid fa-arrow-left me-2"></i>Cancelar
                     </a>
-                    <button type="submit" name="btnRegistrar" class="btn-form-primary">
-                        <i class="fa-solid fa-save me-2"></i>Registrar Crédito
+                    <button type="submit" name="btnActualizar" class="btn-form-primary">
+                        <i class="fa-solid fa-save me-2"></i>Actualizar Crédito
                     </button>
                 </div>
             </form>

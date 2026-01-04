@@ -1,5 +1,7 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/View/LayoutInterno.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/ProveedoresController.php';
+    $proveedores = ConsultarProveedoresEliminados();
 ?>
 
 <!doctype html>
@@ -13,7 +15,7 @@
 
     <div class="row mb-3">
         <div class="col-12 mt-4">
-            <h2 class="text-center mb-3" style="color: #2c3e50; font-weight: 700;">Listado de Proveedores</h2>
+            <h2 class="text-center mb-3" style="color: #2c3e50; font-weight: 700;">Listado de Proveedores Eliminados</h2>
         </div>
         <div class="mb-3">
             <a class="btn text-white px-4 btn-custom-ligth mt-1" style="background-color: #b4b4b4ff;"
@@ -43,26 +45,38 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    foreach ($proveedores as $proveedor) 
+                    {
+                        echo '
                         <tr>
-                            <td class="text-center align-middle"><strong>1</strong></td>
-                            <td class="text-center align-middle"><strong>Pipasa</strong></td>
-                            <td class="text-center align-middle"><strong>2440-0101</strong></td>
-                            <td class="text-center align-middle"><strong>pipasaventas@pipasa.com</strong></td>
+                            <td class="text-center align-middle"><strong>'.$proveedor['idProveedor'].'</strong></td>
+                            <td class="text-center align-middle"><strong>'.$proveedor['nombreProveedor'].'</strong></td>
+                            <td class="text-center align-middle"><strong>'.$proveedor['telefono'].'</strong></td>
+                            <td class="text-center align-middle"><strong>'.$proveedor['correoElectronico'].'</strong></td>
                             <td class="text-center align-middle">
-                                <div class="action-buttons">
-                                    <a href="">
-                                        <i class="fa-regular fa-pen-to-square"></i>
+                                <div class="action-buttons d-flex justify-content-center gap-3">
+
+                                    <a href="ActualizarProveedor.php?id='.$proveedor['idProveedor'].'" 
+                                    title="Ver"
+                                    style="color:#0d6efd;font-size:22px;">
+                                        <i class="fa-regular fa-eye"></i>
                                     </a>
 
-                                    <form method="POST" action="">
-                                        <input type="hidden" name="idProveedor" value="">
-                                        <button type="submit" name="btnActivar" style="background: none; border: none; padding: 0; margin: 0; cursor: pointer; color: #64dc35ff; font-size: 26px;">
-                                            <i class="fa-solid fa-rotate-right"></i>
+                                    <form method="POST" action="" style="margin:0;">
+                                        <input type="hidden" name="idProveedor" value="'.$proveedor['idProveedor'].'">
+                                        <button type="submit" name="btnActivarProveedor"
+                                            title="Eliminar"
+                                            style="background:none;border:none;color:#198754;font-size:22px;">
+                                            <i class="fa-solid fa-trash-can"></i>
                                         </button>
                                     </form>
+
                                 </div>
                             </td>
-                        </tr>
+                        </tr>';
+                    }
+                    ?>
                     </tbody>
                 </table>
             </div>
@@ -71,6 +85,28 @@
 
     <?php ShowJS() ?>
     <script src="../JS/Proveedor.js"></script>
+
+    <?php if (isset($_SESSION['sweet_success'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: '<?= $_SESSION['sweet_success'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_success']); endif; ?>
+
+    <?php if (isset($_SESSION['sweet_error'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '<?= $_SESSION['sweet_error'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_error']); endif; ?>
 </body>
 
 </html>

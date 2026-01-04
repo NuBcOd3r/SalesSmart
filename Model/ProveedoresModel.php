@@ -1,29 +1,12 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Model/ConexionModel.php';
 
-    function RegistrarCreditoModel ($cedula, $nombreCliente, $monto, $fechaMaxima)
+    function ConsultarProveedoresModel ()
     {
         try
         {
             $context = OpenConnection();
-            $sentecia = "CALL RegistrarCredito('$cedula', '$nombreCliente', '$monto', '$fechaMaxima')";
-            $resultado = $context -> query($sentecia);
-            CloseConnection($context);
-            return $resultado;
-        }
-        catch(Exception $error)
-        {
-            SaveError($error);
-            return false;
-        }
-    }
-
-    function ConsultarCreditosModel ()
-    {
-        try
-        {
-            $context = OpenConnection();
-            $sentencia = "CALL ConsultarCreditos()";
+            $sentencia = "CALL ConsultarProveedores()";
             $resultado = $context -> query($sentencia);
             $datos = [];
             while ($row = $resultado->fetch_assoc()) 
@@ -41,12 +24,12 @@
         }
     }
 
-    function ConsultarCreditosPagadosModel ()
+    function ConsultarProveedoresEliminadosModel ()
     {
         try
         {
             $context = OpenConnection();
-            $sentencia = "CALL ConsultarCreditosPagados()";
+            $sentencia = "CALL ConsultarProveedoresEliminados()";
             $resultado = $context -> query($sentencia);
             $datos = [];
             while ($row = $resultado->fetch_assoc()) 
@@ -64,13 +47,13 @@
         }
     }
 
-    function EliminarCreditoModel ($idCredito)
+    function RegistrarProveedorModel ($nombre, $telefono, $correo)
     {
         try
         {
             $context = OpenConnection();
-            $sentecia = "CALL EliminarCredito('$idCredito')";
-            $resultado = $context -> query($sentecia);
+            $sentencia = "CALL RegistrarProveedor('$nombre', '$telefono', '$correo')";
+            $resultado = $context -> query($sentencia);
             CloseConnection($context);
             return $resultado;
         }
@@ -81,13 +64,13 @@
         }
     }
 
-    function ActivarCreditoModel ($idCredito)
+    function EliminarProveedorModel ($idProveedor)
     {
         try
         {
             $context = OpenConnection();
-            $sentecia = "CALL ActivarCredito('$idCredito')";
-            $resultado = $context -> query($sentecia);
+            $sentencia = "CALL EliminarProveedor('$idProveedor')";
+            $resultado = $context -> query($sentencia);
             CloseConnection($context);
             return $resultado;
         }
@@ -98,12 +81,29 @@
         }
     }
 
-    function ConsultarCreditoPorIdModel ($idCredito)
+    function ActivarProveedorModel ($idProveedor)
     {
         try
         {
             $context = OpenConnection();
-            $sentencia = "CALL ConsultarCreditoPorId('$idCredito')";
+            $sentencia = "CALL ActivarProveedor('$idProveedor')";
+            $resultado = $context -> query($sentencia);
+            CloseConnection($context);
+            return $resultado;
+        }
+        catch(Exception $error)
+        {
+            SaveError($error);
+            return false;
+        }
+    }
+    
+    function ConsultarProveedorPorIdModel ($idProveedor)
+    {
+        try
+        {
+            $context = OpenConnection();
+            $sentencia = "CALL ConsultarProveedorPorId($idProveedor)";
             $resultado = $context -> query($sentencia);
             $datos = null;
             while ($row = $resultado->fetch_assoc()) 
@@ -121,38 +121,15 @@
         }
     }
 
-    function ActualizarCreditoModel ($idCredito, $cedula, $nombreCliente, $monto, $fechaMaxima)
+    function ActualizarProveedorModel ($idProveedor, $nombre, $telefono, $correo)
     {
         try
         {
             $context = OpenConnection();
-            $sentecia = "CALL ActualizarCredito('$idCredito', '$cedula', '$nombreCliente', '$monto', '$fechaMaxima')";
-            $resultado = $context -> query($sentecia);
+            $sentencia = "CALL ActualizarProveedor('$idProveedor', '$nombre', '$telefono', '$correo')";
+            $resultado = $context -> query($sentencia);
             CloseConnection($context);
             return $resultado;
-        }
-        catch(Exception $error)
-        {
-            SaveError($error);
-            return false;
-        }
-    }
-
-    function ConsultarCreditosVencidosModel ()
-    {
-        try
-        {
-            $context = OpenConnection();
-            $sentencia = "CALL ConsultarCreditosVencidos()";
-            $resultado = $context -> query($sentencia);
-            $datos = [];
-            while ($row = $resultado->fetch_assoc()) 
-            {
-                $datos[] = $row;
-            }
-            $resultado->free();
-            CloseConnection($context);
-            return $datos;
         }
         catch(Exception $error)
         {

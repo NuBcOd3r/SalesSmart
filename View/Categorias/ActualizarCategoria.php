@@ -1,5 +1,8 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/View/LayoutInterno.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/CategoriasController.php';
+    $idCategoria = $_GET['id'];
+    $categorias = ConsultarCategoriaPorId($idCategoria);
 ?>
 
 <!doctype html>
@@ -12,7 +15,7 @@
 
 <div class="row mb-3">
     <div class="col-12 mt-4">
-        <h2 class="text-center mb-3" style="color: #2c3e50; font-weight: 700;">Actualizar Categoría</h2>
+        <h2 class="text-center mb-3" style="color: #2c3e50; font-weight: 700;">Actualizar Categoría # <?php echo $idCategoria?></h2>
     </div>
 </div>
 
@@ -27,9 +30,11 @@
         
         <form method="POST" action="" id="formCategorias" name="formCategorias">
             <div class="row">
+                <input type="hidden" id="idCategoria" name="idCategoria" value="<?php echo $categorias["idCategoria"]?>">
+
                 <div class="col-md-12 mb-4">
                     <label for="nombre" class="form-label-custom"><i class="fa-solid fa-tags me-2"></i>Nombre de la Categoría <span class="text-danger">*</span> </label>
-                    <input type="text" class="form-control-custom" id="nombre" name="nombre" placeholder="Ingrese el nombre de la categoría" required>
+                    <input type="text" class="form-control-custom" id="nombre" name="nombre" value="<?php echo $categorias["nombreCategoria"]?>" required>
                 </div>
             </div>
 
@@ -37,7 +42,7 @@
                 <a href="Categorias.php" class="btn-form-secondary">
                     <i class="fa-solid fa-arrow-left me-2"></i>Cancelar
                 </a>
-                <button type="submit" name="btnRegistrar" id="btnRegistrar" class="btn-form-primary">
+                <button type="submit" name="btnActualizarCategoria" id="btnActualizarCategoria" class="btn-form-primary">
                     <i class="fa-solid fa-save me-2"></i>Actualizar Categoría
                 </button>
             </div>
@@ -47,6 +52,28 @@
 
 <?php ShowJS()?>
 <script src="../JS/Categorias.js"></script>
+
+<?php if (isset($_SESSION['sweet_success'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: '<?= $_SESSION['sweet_success'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_success']); endif; ?>
+
+    <?php if (isset($_SESSION['sweet_error'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '<?= $_SESSION['sweet_error'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_error']); endif; ?>
 </body>
 
 </html>

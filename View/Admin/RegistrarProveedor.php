@@ -1,5 +1,6 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/View/LayoutInterno.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/ProveedoresController.php';
 ?>
 
 <!doctype html>
@@ -34,12 +35,12 @@
 
                 <div class="col-md-6 mb-4">
                     <label for="telefono" class="form-label-custom"> <i class="fa-solid fa-phone me-2"></i>Teléfono <span class="text-danger">*</span> </label>
-                    <input type="tel" class="form-control-custom" id="telefono" name="telefono" placeholder="0000-0000" required >
+                    <input type="number" class="form-control-custom" id="telefono" name="telefono" placeholder="0000-0000" onkeyup="soloNumeros(this);">
                 </div>
 
                 <div class="col-md-6 mb-4">
                     <label for="correo" class="form-label-custom"> <i class="fa-solid fa-envelope me-2"></i>Correo Electrónico <span class="text-danger">*</span> </label>
-                    <input type="email" class="form-control-custom"  id="correo" name="correo" placeholder="ejemplo@correo.com" required>
+                    <input type="email" class="form-control-custom"  id="correo" name="correo" placeholder="ejemplo@correo.com" >
                 </div>
             </div>
 
@@ -47,7 +48,7 @@
                 <a href="Proveedor.php" class="btn-form-secondary">
                     <i class="fa-solid fa-arrow-left me-2"></i>Cancelar
                 </a>
-                <button type="submit" name="btnRegistrar" id="btnRegistrar" class="btn-form-primary">
+                <button type="submit" name="btnRegistrarProveedor" id="btnRegistrarProveedor" class="btn-form-primary">
                     <i class="fa-solid fa-save me-2"></i>Registrar Proveedor
                 </button>
             </div>
@@ -57,6 +58,28 @@
 
 <?php ShowJS()?>
 <script src="../JS/Proveedor.js"></script>
+
+<?php if (isset($_SESSION['sweet_success'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: '<?= $_SESSION['sweet_success'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_success']); endif; ?>
+
+    <?php if (isset($_SESSION['sweet_error'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '<?= $_SESSION['sweet_error'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_error']); endif; ?>
 </body>
 
 </html>

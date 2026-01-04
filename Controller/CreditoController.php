@@ -1,6 +1,9 @@
 <?php
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
     include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Model/CreditoModel.php';
-    $mostrarSweetAlert = false;
 
     if (isset($_POST["btnRegistrarCredito"])) 
     {
@@ -78,4 +81,31 @@
         return ConsultarCreditoPorIdModel($idCredito);
     }
 
+    if(isset($_POST["btnActualizar"]))
+    {
+        $idCredito = $_POST["idCredito"];
+        $cedula = $_POST["cedula"];
+        $nombreCliente = $_POST["nombreCliente"];
+        $monto = $_POST["monto"];
+        $fechaMaxima = $_POST["fechaMaxima"];
+        $resultado = ActualizarCreditoModel($idCredito, $cedula, $nombreCliente, $monto, $fechaMaxima);
+
+        if ($resultado) 
+        {
+            $_SESSION['sweet_success'] = "Crédito actualizado correctamente.";
+            header("Location: ../Creditos/Creditos.php");
+            exit;
+        } 
+        else 
+        {
+            $_SESSION['sweet_error'] = "El crédito no se ha podido actualizar.";
+            header("Location: ../Creditos/Creditos.php");
+            exit;
+        }
+    }
+
+    function ConsultarCreditosVencidos()
+    {
+        return ConsultarCreditosVencidosModel();
+    }
 ?>

@@ -1,5 +1,7 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/View/LayoutInterno.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/CategoriasController.php';
+    $categorias = ConsultarCategoriasEliminadas();
 ?>
 
 <!doctype html>
@@ -41,24 +43,36 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    foreach ($categorias as $categoria) 
+                    {
+                        echo '
                         <tr>
-                            <td class="text-center align-middle"><strong>1</strong></td>
-                            <td class="text-center align-middle"><strong>Pipasa</strong></td>
+                            <td class="text-center align-middle"><strong>'.$categoria['idCategoria'].'</strong></td>
+                            <td class="text-center align-middle"><strong>'.$categoria['nombreCategoria'].'</strong></td>
                             <td class="text-center align-middle">
-                                <div class="action-buttons">
-                                    <a href="">
-                                        <i class="fa-regular fa-pen-to-square"></i>
+                                <div class="action-buttons d-flex justify-content-center gap-3">
+
+                                    <a href="ActualizarCategoria.php?id='.$categoria['idCategoria'].'" 
+                                    title="Ver"
+                                    style="color:#0d6efd;font-size:22px;">
+                                        <i class="fa-regular fa-eye"></i>
                                     </a>
 
-                                    <form method="POST" action="">
-                                        <input type="hidden" name="idCategoria" value="">
-                                        <button type="submit" name="btnEliminar" title="Eliminar">
-                                            <i class="fa-solid fa-eraser"></i>
+                                    <form method="POST" action="" style="margin:0;">
+                                        <input type="hidden" name="idCategoria" value="'.$categoria['idCategoria'].'">
+                                        <button type="submit" name="btnActivarCategoria"
+                                            title="Eliminar"
+                                            style="background:none;border:none;color:#198754;font-size:22px;">
+                                            <i class="fa-solid fa-circle-check"></i>
                                         </button>
                                     </form>
+
                                 </div>
                             </td>
-                        </tr>
+                        </tr>';
+                    }
+                    ?>
                     </tbody>
                 </table>
             </div>
@@ -67,6 +81,28 @@
 
     <?php ShowJS() ?>
     <script src="../JS/Proveedor.js"></script>
+
+    <?php if (isset($_SESSION['sweet_success'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: '<?= $_SESSION['sweet_success'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_success']); endif; ?>
+
+    <?php if (isset($_SESSION['sweet_error'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '<?= $_SESSION['sweet_error'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_error']); endif; ?>
 </body>
 
 </html>

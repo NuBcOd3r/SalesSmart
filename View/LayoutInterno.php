@@ -1,4 +1,7 @@
 <?php
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/CreditoController.php';
+    $notificaciones = ConsultarCreditosVencidos();
+
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
@@ -61,12 +64,6 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../Principal/Home.php" class="nav-link" onclick="setActive(this)">
-                        <i class="fas fa-home"></i>
-                        <span>Inicio</span>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="../Productos/Productos.php" class="nav-link" onclick="setActive(this)">
                         <i class="fas fa-box"></i>
                         <span>Inventario</span>
@@ -82,6 +79,12 @@
                     <a href="../Admin/Proveedor.php" class="nav-link" onclick="setActive(this)">
                         <i class="fas fa-truck"></i>
                         <span>Proveedores</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../Principal/Home.php" class="nav-link" onclick="setActive(this)">
+                        <i class="fas fa-home"></i>
+                        <span>Inicio</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -102,7 +105,6 @@
         <div class="main-content">
             <div class="top-navbar d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">Bienvenido(a)</h4>
-
                 <div class="dropdown">
                     <a class="dropdown-toggle text-decoration-none text-dark" href="#" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
