@@ -1,5 +1,7 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/View/LayoutInterno.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/ProductosController.php';
+    $productos = ConsultarProductosEliminados();
 ?>
 
 <!doctype html>
@@ -49,32 +51,90 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    foreach ($productos as $producto) 
+                    {
+                        if ($producto['cantidad'] <= 5) 
+                        {
+                            $badgeStock = 'danger';
+                        } 
+                        elseif ($producto['cantidad'] <= 10) 
+                        {
+                            $badgeStock = 'warning';
+                        } 
+                        else 
+                        {
+                            $badgeStock = 'success';
+                        }
+
+                        echo '
                         <tr>
-                            <td class="text-center align-middle"><strong>1</strong></td>
-                            <td class="text-center align-middle"><strong>7501234567890</strong></td>
-                            <td class="text-center align-middle"><strong>Laptop HP Pavilion</strong></td>
-                            <td class="text-center align-middle"><strong>HP</strong></td>
-                            <td class="text-center align-middle">Intel Core i5, 8GB RAM, 256GB SSD</td>
-                            <td class="text-center align-middle"><span class="badge bg-success">15</span></td>
-                            <td class="text-center align-middle"><strong>₡450,000</strong></td>
-                            <td class="text-center align-middle"><strong>₡500,000</strong></td>
-                            <td class="text-center align-middle"><span class="badge bg-primary">Electrónica</span></td>
-                            <td class="text-center align-middle">Pipasa</td>
+                            <td class="text-center align-middle"><strong>'.$producto['idProducto'].'</strong></td>
+
                             <td class="text-center align-middle">
-                                <div class="action-buttons">
-                                    <a href="ActualizarProducto.php?id=1" title="Editar">
-                                        <i class="fa-regular fa-pen-to-square"></i>
+                                <strong>'.$producto['codigoBarras'].'</strong>
+                            </td>
+
+                            <td class="text-center align-middle">
+                                <strong>'.$producto['nombre'].'</strong>
+                            </td>
+
+                            <td class="text-center align-middle">
+                                '.$producto['marca'].'
+                            </td>
+
+                            <td class="text-center align-middle">
+                                '.$producto['descripcion'].'
+                            </td>
+
+                            <td class="text-center align-middle">
+                                <span class="badge bg-'.$badgeStock.'">
+                                    '.$producto['cantidad'].'
+                                </span>
+                            </td>
+
+                            <td class="text-center align-middle">
+                                ₡'.number_format($producto['precioUnitario'], 2).'
+                            </td>
+
+                            <td class="text-center align-middle">
+                                ₡'.number_format($producto['precio'], 2).'
+                            </td>
+
+                            <td class="text-center align-middle">
+                                <span class="badge bg-info">
+                                    '.$producto['nombreCategoria'].'
+                                </span>
+                            </td>
+
+                            <td class="text-center align-middle">
+                                '.$producto['nombreProveedor'].'
+                            </td>
+
+                            <td class="text-center align-middle">
+                                <div class="action-buttons d-flex justify-content-center gap-3">
+
+                                    <a href="ActualizarProducto.php?id='.$producto['idProducto'].'"
+                                    title="Ver"
+                                    style="color:#0d6efd;font-size:22px;">
+                                        <i class="fa-regular fa-eye"></i>
                                     </a>
 
-                                    <form method="POST" action="">
-                                        <input type="hidden" name="idProducto" value="1">
-                                        <button type="submit" name="btnActivar" style="background: none; border: none; padding: 0; margin: 0; cursor: pointer; color: #ff00ddff; font-size: 26px;">
-                                            <i class="fa-solid fa-rotate-right"></i>
+                                    <form method="POST" action="" style="margin:0;">
+                                        <input type="hidden" name="idProducto" value="'.$producto['idProducto'].'">
+                                        <button type="submit"
+                                            name="btnActivarProducto"
+                                            title="Eliminar"
+                                            style="background:none;border:none;color:#198754;font-size:22px;">
+                                            <i class="fa-solid fa-trash-can"></i>
                                         </button>
                                     </form>
+
                                 </div>
                             </td>
-                        </tr>
+                        </tr>';
+                    }
+                    ?>
                     </tbody>
                 </table>
             </div>
@@ -83,6 +143,28 @@
 
     <?php ShowJS() ?>
     <script src="../JS/Productos.js"></script>
+
+    <?php if (isset($_SESSION['sweet_success'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: '<?= $_SESSION['sweet_success'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_success']); endif; ?>
+
+    <?php if (isset($_SESSION['sweet_error'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '<?= $_SESSION['sweet_error'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_error']); endif; ?>
 </body>
 
 </html>

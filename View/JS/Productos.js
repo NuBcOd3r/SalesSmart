@@ -28,17 +28,6 @@ $(function () {
                 number: true,
                 min: 0
             },
-            precioUnitario: {
-                required: true,
-                number: true,
-                min: 0.01
-            },
-            precio: {
-                required: true,
-                number: true,
-                min: 0.01,
-                greaterThan: "#precioUnitario"
-            },
             proveedor: {
                 required: true
             }
@@ -69,16 +58,6 @@ $(function () {
                 required: "Se requiere la cantidad en stock para continuar",
                 number: "La cantidad debe ser un número válido",
                 min: "La cantidad no puede ser negativa"
-            },
-            precioUnitario: {
-                required: "Se requiere el precio unitario para continuar",
-                number: "El precio unitario debe ser un número válido",
-                min: "El precio unitario debe ser mayor a 0"
-            },
-            precio: {
-                required: "Se requiere el precio de venta para continuar",
-                number: "El precio de venta debe ser un número válido",
-                min: "El precio de venta debe ser mayor a 0",
             },
             proveedor: {
                 required: "Se requiere seleccionar un proveedor para continuar"

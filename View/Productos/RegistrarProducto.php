@@ -1,5 +1,8 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/View/LayoutInterno.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/ProductosController.php';
+    $categorias = ConsultarCategorias();
+    $proveedores = ConsultarProveedor();
 ?>
 
 <!doctype html>
@@ -44,16 +47,23 @@
                         <input type="text" class="form-control-custom" id="marca" name="marca" placeholder="Ingrese la marca" required >
                     </div>
 
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md-6 mb-3">
                         <label for="categoria" class="form-label-custom"> <i class="fa-solid fa-list me-2"></i>Categoría <span class="text-danger">*</span> </label>
-                        <select class="form-control-custom form-select-custom" id="categoria" name="categoria" required>
-                            <option value="" selected disabled>Seleccione una categoría</option>
-                            <option value="1">Electrónica</option>
-                            <option value="2">Mobiliario</option>
-                            <option value="3">Papelería</option>
-                            <option value="4">Accesorios</option>
-                            <option value="5">Software</option>
-                            <option value="6">Periféricos</option>
+                        <select name="categoria" id="categoria" class="form-control-custom form-select-custom" required>
+                            <option value="">Seleccione una categoría</option>
+                            <?php
+                                if(!empty($categorias))
+                                {
+                                    foreach($categorias as $categoria)
+                                    {
+                                        echo '<option value="' . $categoria['idCategoria'] . '">' . htmlspecialchars($categoria['nombreCategoria']) . '</option>';
+                                    }
+                                }
+                                else
+                                {
+                                    echo"<option value=''>No hay categorías por mostrar</option>";
+                                }
+                            ?>
                         </select>
                     </div>
 
@@ -69,23 +79,31 @@
 
                     <div class="col-md-4 mb-4">
                         <label for="precioUnitario" class="form-label-custom"> <i class="fa-solid fa-dollar-sign me-2"></i>Precio Unitario <span class="text-danger">*</span> </label>
-                        <input type="number" class="form-control-custom" id="precioUnitario" name="precioUnitario" placeholder="0.00" step="0.01" min="0" required >
+                        <input type="number" class="form-control-custom" id="precioUnitario" name="precioUnitario" placeholder="0.00" step="0.01" min="0" >
                     </div>
 
                     <div class="col-md-4 mb-4">
                         <label for="precio" class="form-label-custom"> <i class="fa-solid fa-money-bill-wave me-2"></i>Precio de Venta <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control-custom" id="precio" name="precio" placeholder="0.00" step="0.01" min="0" required >
+                        <input type="number" class="form-control-custom" id="precio" name="precio" placeholder="0.00" step="0.01" min="0" >
                     </div>
 
-                    <div class="col-md-12 mb-4">
-                        <label for="proveedor" class="form-label-custom"> <i class="fa-solid fa-truck me-2"></i>Proveedor <span class="text-danger">*</span></label>
-                        <select  class="form-control-custom form-select-custom"  id="proveedor" name="proveedor" required >
-                            <option value="" selected disabled>Seleccione un proveedor</option>
-                            <option value="1">Pipasa</option>
-                            <option value="2">Tech Solutions</option>
-                            <option value="3">Muebles CR</option>
-                            <option value="4">Distribuidora Central</option>
-                            <option value="5">Office Depot</option>
+                    <div class="col-md-12 mb-3">
+                        <label for="proveedor" class="form-label-custom"> <i class="fa-solid fa-list me-2"></i>Proveedor <span class="text-danger">*</span> </label>
+                        <select name="proveedor" id="proveedor" class="form-control-custom form-select-custom" required>
+                            <option value="">Seleccione un proveedor</option>
+                            <?php
+                                if(!empty($proveedores))
+                                {
+                                    foreach($proveedores as $proveedor)
+                                    {
+                                        echo '<option value="' . $proveedor['idProveedor'] . '">' . htmlspecialchars($proveedor['nombreProveedor']) . '</option>';
+                                    }
+                                }
+                                else
+                                {
+                                    echo"<option value=''>No hay proveedores por mostrar</option>";
+                                }
+                            ?>
                         </select>
                     </div>
                 </div>
@@ -104,6 +122,28 @@
 
     <?php ShowJS() ?>
     <script src="../JS/Productos.js"></script>
+
+    <?php if (isset($_SESSION['sweet_success'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: '<?= $_SESSION['sweet_success'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_success']); endif; ?>
+
+    <?php if (isset($_SESSION['sweet_error'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '<?= $_SESSION['sweet_error'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_error']); endif; ?>
 </body>
 
 </html>
