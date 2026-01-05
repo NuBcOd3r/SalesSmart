@@ -1,0 +1,252 @@
+        .input-group-scan {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-group-scan .form-control-custom {
+            flex: 1;
+        }
+
+        .input-group-scan .form-control-custom-2 {
+            flex: 1;
+        }
+
+        .btn-scan {
+            background: linear-gradient(135deg, #198754 0%, #146c43 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(25, 135, 84, 0.2);
+            white-space: nowrap;
+        }
+
+        .btn-scan:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(25, 135, 84, 0.4);
+        }
+
+        .table-venta {
+            margin-bottom: 0;
+        }
+
+        .table-venta thead {
+            background: linear-gradient(135deg, #0a58ca 0%, #084298 100%);
+            color: white;
+        }
+
+        .table-venta thead th {
+            border: none;
+            padding: 15px 10px;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .table-venta tbody td {
+            padding: 15px 10px;
+            vertical-align: middle;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .table-venta tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            justify-content: center;
+        }
+
+        .qty-btn {
+            background-color: #e9ecef;
+            border: none;
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .qty-btn:hover {
+            background-color: #0a58ca;
+            color: white;
+        }
+
+        .qty-input {
+            width: 60px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 6px;
+            font-weight: 600;
+        }
+
+        .qty-input:focus {
+            outline: none;
+            border-color: #0a58ca;
+        }
+
+        .btn-delete-item {
+            background-color: #ffebee;
+            color: #dc3545;
+            border: none;
+            border-radius: 6px;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-delete-item:hover {
+            background-color: #dc3545;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .card-resumen {
+            position: sticky;
+            top: 20px;
+        }
+
+        .resumen-totales {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .resumen-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 16px;
+        }
+
+        .resumen-item .valor {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .resumen-total {
+            border-top: 2px solid #dee2e6;
+            margin-top: 10px;
+            padding-top: 15px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .resumen-total .valor-total {
+            color: #0a58ca;
+            font-size: 24px;
+        }
+
+        .btn-finalizar-venta {
+            background: linear-gradient(135deg, #198754 0%, #146c43 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 15px 24px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(25, 135, 84, 0.2);
+        }
+
+        .btn-finalizar-venta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(25, 135, 84, 0.4);
+        }
+
+        .btn-cancelar-venta {
+            background: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(108, 117, 125, 0.2);
+        }
+
+        .btn-cancelar-venta:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(108, 117, 125, 0.4);
+        }
+
+        #pagoEfectivo {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 2px dashed #dee2e6;
+        }
+
+        #vuelto {
+            background-color: #e3f2fd;
+            font-weight: 700;
+            color: #0a58ca;
+            font-size: 18px;
+        }
+
+        @media (max-width: 991px) {
+            .card-resumen {
+                position: relative;
+                top: 0;
+                margin-top: 20px;
+            }
+        }
+
+        .cantidad-input,
+        .precio-editable {
+            width: 100%;
+            text-align: center;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 6px;
+            font-weight: 600;
+        }
+
+        .cantidad-input:focus,
+        .precio-editable:focus {
+            outline: none;
+            border-color: #0d6efd;
+            background-color: #e7f1ff;
+        }
+
+        #codigoBarras {
+            border-radius: 8px !important;
+        }
+
+        .input-group-scan>.form-control-custom {
+            border-radius: 8px !important;
+        }
+
+
+        .input-group-scan>.form-control-custom:first-child,
+        .input-group-scan>.form-control-custom:not(:last-child) {
+            border-top-right-radius: 8px !important;
+            border-bottom-right-radius: 8px !important;
+        }
+
+        .input-group-scan>.form-control-custom:last-child,
+        .input-group-scan>.form-control-custom:not(:first-child) {
+            border-top-left-radius: 8px !important;
+            border-bottom-left-radius: 8px !important;
+        }
+
+        .input-cantidad {
+            width: 70px;
+            text-align: center;
+            padding: 4px 6px;
+        }

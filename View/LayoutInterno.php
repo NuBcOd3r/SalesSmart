@@ -28,6 +28,7 @@
             <link rel="stylesheet" href="../CSS/EstilosProveedor.css">
             <link rel="stylesheet" href="../CSS/EstilosProducto.css">
             <link rel="stylesheet" href="../CSS/EstilosCredito.css">
+            <link rel="stylesheet" href="../CSS/EstilosVenta.css">
         </head>
         ';
     }

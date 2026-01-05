@@ -1,5 +1,7 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/View/LayoutInterno.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/VentasController.php';
+    $metodosPago = ConsultarMetodosPago();
 ?>
 
 <!doctype html>
@@ -28,16 +30,34 @@
                                 <div class="input-group input-group-scan">
                                     <input 
                                         type="text" 
-                                        class="form-control-custom" 
+                                        class="form-control-custom"
                                         id="codigoBarras" 
                                         name="codigoBarras"
                                         placeholder="Escanee o escriba el código de barras"
                                         autofocus
                                     >
-                                    <button class="btn-scan" type="button">
-                                        <i class="fa-solid fa-plus"></i> Agregar
-                                    </button>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3 align-items-end">
+                            <div class="col-md-5 mb-3">
+                                <label class="form-label-custom">
+                                    <i class="fa-solid fa-box-open me-2"></i>Nombre del Producto
+                                </label>
+                                <input type="text" class="form-control-custom" id="nombreManual">
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label-custom">
+                                    <i class="fa-solid fa-tag me-2"></i>Precio
+                                </label>
+                                <input type="number" class="form-control-custom" id="precioManual" step="0.01" min="0">
+                            </div>
+
+                            <div class="col-md-3 mb-3 d-grid">
+                                <button class="btn-scan" type="button"  id="btnAgregarManual">
+                                    <i class="fa-solid fa-plus"></i> Agregar
+                                </button>
                             </div>
                         </div>
 
@@ -45,57 +65,16 @@
                             <table class="table table-venta" id="tablaVenta">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Producto</th>
-                                        <th>Cantidad</th>
-                                        <th>Precio Unit.</th>
-                                        <th>Subtotal</th>
-                                        <th>Acción</th>
+                                        <th class="text-center align-middle">#</th>
+                                        <th class="text-center align-middle">Producto</th>
+                                        <th class="text-center align-middle">Cantidad</th>
+                                        <th class="text-center align-middle">Precio Unit</th>
+                                        <th class="text-center align-middle">Subtotal</th>
+                                        <th class="text-center align-middle">Acción</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            <strong>Laptop HP Pavilion</strong><br>
-                                            <small class="text-muted">Código: 7501234567890</small>
-                                        </td>
-                                        <td>
-                                            <div class="quantity-control">
-                                                <button class="qty-btn" type="button">-</button>
-                                                <input type="number" class="qty-input" value="1" min="1">
-                                                <button class="qty-btn" type="button">+</button>
-                                            </div>
-                                        </td>
-                                        <td>₡500,000.00</td>
-                                        <td><strong>₡500,000.00</strong></td>
-                                        <td>
-                                            <button class="btn-delete-item" type="button">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>
-                                            <strong>Mouse Logitech MX Master</strong><br>
-                                            <small class="text-muted">Código: 7501234567891</small>
-                                        </td>
-                                        <td>
-                                            <div class="quantity-control">
-                                                <button class="qty-btn" type="button">-</button>
-                                                <input type="number" class="qty-input" value="2" min="1">
-                                                <button class="qty-btn" type="button">+</button>
-                                            </div>
-                                        </td>
-                                        <td>₡42,000.00</td>
-                                        <td><strong>₡84,000.00</strong></td>
-                                        <td>
-                                            <button class="btn-delete-item" type="button">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <tbody id="detalleVenta">
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -113,22 +92,31 @@
                         <div>
                             <div class="resumen-item resumen-total">
                                 <span>Total:</span>
-                                <span class="valor-total">₡659,920.00</span>
+                                <span class="valor-total">₡<span id="totalVenta">0.00</span></span>
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="metodoPago" class="form-label-custom">
-                                <i class="fa-solid fa-credit-card me-2"></i>Método de Pago
-                            </label>
-                            <select class="form-control-custom form-select-custom" id="metodoPago" name="metodoPago">
-                                <option value="efectivo">Efectivo</option>
-                                <option value="tarjeta">Tarjeta</option>
-                                <option value="sinpe">SINPE Móvil</option>
+                        <div class="col-md-12 mb-3">
+                            <label for="MetodoPago" class="form-label-custom"> <i class="fa-solid fa-money-bills me-2"></i>Metodó de Pago </label>
+                            <select name="MetodoPago" id="MetodoPago" class="form-control-custom form-select-custom" onchange="cambiarMetodoPago()" required>
+                                <option value="">Seleccione un metodó de pago</option>
+                                <?php
+                                    if(!empty($metodosPago))
+                                    {
+                                        foreach($metodosPago as $metodoPago)
+                                        {
+                                            echo '<option value="' . $metodoPago['idMetodoPago'] . '">' . htmlspecialchars($metodoPago['nombreMetodoPago']) . '</option>';
+                                        }
+                                    }
+                                    else
+                                    {
+                                        echo"<option value=''>No hay metodos de pagó por mostrar</option>";
+                                    }
+                                ?>
                             </select>
                         </div>
 
-                        <div id="pagoEfectivo" style="display: block;">
+                        <div id="pagoEfectivo" style="display: none;" >
                             <div class="mb-3">
                                 <label for="montoRecibido" class="form-label-custom">
                                     <i class="fa-solid fa-money-bill-wave me-2"></i>Monto Recibido
@@ -154,7 +142,7 @@
                             <button type="button" class="btn-finalizar-venta">
                                 <i class="fa-solid fa-check-circle me-2"></i>Finalizar Venta
                             </button>
-                            <button type="button" class="btn-cancelar-venta">
+                            <button type="button" class="btn-cancelar-venta" onclick="cancelarVenta()">
                                 <i class="fa-solid fa-times-circle me-2"></i>Cancelar Venta
                             </button>
                         </div>
@@ -165,214 +153,7 @@
     </div>
 
     <?php ShowJS() ?>
-
-    <style>
-        .input-group-scan {
-            display: flex;
-            gap: 10px;
-        }
-
-        .input-group-scan .form-control-custom {
-            flex: 1;
-        }
-
-        .btn-scan {
-            background: linear-gradient(135deg, #198754 0%, #146c43 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 24px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(25, 135, 84, 0.2);
-            white-space: nowrap;
-        }
-
-        .btn-scan:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(25, 135, 84, 0.4);
-        }
-
-        .table-venta {
-            margin-bottom: 0;
-        }
-
-        .table-venta thead {
-            background: linear-gradient(135deg, #0a58ca 0%, #084298 100%);
-            color: white;
-        }
-
-        .table-venta thead th {
-            border: none;
-            padding: 15px 10px;
-            font-weight: 600;
-            font-size: 14px;
-            text-transform: uppercase;
-        }
-
-        .table-venta tbody td {
-            padding: 15px 10px;
-            vertical-align: middle;
-            border-bottom: 1px solid #e9ecef;
-        }
-
-        .table-venta tbody tr:hover {
-            background-color: #f8f9fa;
-        }
-
-        .quantity-control {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            justify-content: center;
-        }
-
-        .qty-btn {
-            background-color: #e9ecef;
-            border: none;
-            border-radius: 6px;
-            width: 32px;
-            height: 32px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            color: #495057;
-        }
-
-        .qty-btn:hover {
-            background-color: #0a58ca;
-            color: white;
-        }
-
-        .qty-input {
-            width: 60px;
-            text-align: center;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            padding: 6px;
-            font-weight: 600;
-        }
-
-        .qty-input:focus {
-            outline: none;
-            border-color: #0a58ca;
-        }
-
-        .btn-delete-item {
-            background-color: #ffebee;
-            color: #dc3545;
-            border: none;
-            border-radius: 6px;
-            width: 36px;
-            height: 36px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-delete-item:hover {
-            background-color: #dc3545;
-            color: white;
-            transform: scale(1.1);
-        }
-
-        .card-resumen {
-            position: sticky;
-            top: 20px;
-        }
-
-        .resumen-totales {
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        .resumen-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            font-size: 16px;
-        }
-
-        .resumen-item .valor {
-            font-weight: 600;
-            color: #495057;
-        }
-
-        .resumen-total {
-            border-top: 2px solid #dee2e6;
-            margin-top: 10px;
-            padding-top: 15px;
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .resumen-total .valor-total {
-            color: #0a58ca;
-            font-size: 24px;
-        }
-
-        .btn-finalizar-venta {
-            background: linear-gradient(135deg, #198754 0%, #146c43 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 15px 24px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(25, 135, 84, 0.2);
-        }
-
-        .btn-finalizar-venta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(25, 135, 84, 0.4);
-        }
-
-        .btn-cancelar-venta {
-            background: #6c757d;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 12px 24px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(108, 117, 125, 0.2);
-        }
-
-        .btn-cancelar-venta:hover {
-            background: #5a6268;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(108, 117, 125, 0.4);
-        }
-
-        #pagoEfectivo {
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 2px dashed #dee2e6;
-        }
-
-        #vuelto {
-            background-color: #e3f2fd;
-            font-weight: 700;
-            color: #0a58ca;
-            font-size: 18px;
-        }
-
-        @media (max-width: 991px) {
-            .card-resumen {
-                position: relative;
-                top: 0;
-                margin-top: 20px;
-            }
-        }
-    </style>
-
+    <script src="../JS/Pago.js"></script>
 </body>
 
 </html>

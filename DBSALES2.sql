@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `dbsales` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `dbsales`;
--- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.43, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dbsales
 -- ------------------------------------------------------
--- Server version	8.0.44
+-- Server version	8.0.43
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -74,6 +74,38 @@ INSERT INTO `tbcredito` VALUES (1,'207960874','BRANDON JOSUE CORELLA SANCHEZ',20
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tbdetalleventa`
+--
+
+DROP TABLE IF EXISTS `tbdetalleventa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbdetalleventa` (
+  `idDetalleVenta` int NOT NULL AUTO_INCREMENT,
+  `idVenta` int NOT NULL,
+  `idProducto` int DEFAULT NULL,
+  `descripcionManual` varchar(255) DEFAULT NULL,
+  `cantidad` int NOT NULL,
+  `precio` decimal(10,2) NOT NULL,
+  `subtotal` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`idDetalleVenta`),
+  KEY `FK_VENTA_DETALLE` (`idVenta`),
+  KEY `FK_PRODUCTO_DETALLE` (`idProducto`),
+  CONSTRAINT `FK_PRODUCTO_DETALLE` FOREIGN KEY (`idProducto`) REFERENCES `tbproducto` (`idProducto`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `FK_VENTA_DETALLE` FOREIGN KEY (`idVenta`) REFERENCES `tbventa` (`idVenta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbdetalleventa`
+--
+
+LOCK TABLES `tbdetalleventa` WRITE;
+/*!40000 ALTER TABLE `tbdetalleventa` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbdetalleventa` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tberror`
 --
 
@@ -85,7 +117,7 @@ CREATE TABLE `tberror` (
   `mensaje` varchar(8000) NOT NULL,
   `fechaHora` datetime NOT NULL,
   PRIMARY KEY (`idError`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,6 +126,7 @@ CREATE TABLE `tberror` (
 
 LOCK TABLES `tberror` WRITE;
 /*!40000 ALTER TABLE `tberror` DISABLE KEYS */;
+INSERT INTO `tberror` VALUES (23,'Table \'dbsales.tbcliente\' doesn\'t exist','2026-01-05 13:14:52');
 /*!40000 ALTER TABLE `tberror` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,6 +155,30 @@ INSERT INTO `tbestadocredito` VALUES (1,'Pendiente'),(2,'Vencido'),(3,'Pagado');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tbmetodopago`
+--
+
+DROP TABLE IF EXISTS `tbmetodopago`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbmetodopago` (
+  `idMetodoPago` int NOT NULL AUTO_INCREMENT,
+  `nombreMetodoPago` varchar(45) NOT NULL,
+  PRIMARY KEY (`idMetodoPago`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbmetodopago`
+--
+
+LOCK TABLES `tbmetodopago` WRITE;
+/*!40000 ALTER TABLE `tbmetodopago` DISABLE KEYS */;
+INSERT INTO `tbmetodopago` VALUES (1,'Efectivo'),(2,'Tarjeta'),(3,'SINPE Móvil');
+/*!40000 ALTER TABLE `tbmetodopago` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbproducto`
 --
 
@@ -146,7 +203,7 @@ CREATE TABLE `tbproducto` (
   KEY `FK_PRODUCTO_PROVEEDOR` (`idProveedor`),
   CONSTRAINT `FK_PRODUCTO_CATEGORIA` FOREIGN KEY (`idCategoria`) REFERENCES `tbcategoria` (`idCategoria`),
   CONSTRAINT `FK_PRODUCTO_PROVEEDOR` FOREIGN KEY (`idProveedor`) REFERENCES `tbproveedores` (`idProveedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,7 +212,7 @@ CREATE TABLE `tbproducto` (
 
 LOCK TABLES `tbproducto` WRITE;
 /*!40000 ALTER TABLE `tbproducto` DISABLE KEYS */;
-INSERT INTO `tbproducto` VALUES (1,'760861000037 ','Café','Presto',1,'Instantáneo 50G',2,2185.00,2185.00,1,_binary ''),(2,'7613287911841','Café','Presto',1,'Instantáneo Unidad',7,100.00,100.00,1,_binary ''),(3,'748366200749','Café','Rey',1,'500G',6,3470.00,3470.00,2,_binary ''),(4,'748366200732','Café','Prestos',1,'240G',26,1020.00,1020.00,2,_binary '');
+INSERT INTO `tbproducto` VALUES (1,'760861000037 ','Café','Presto',1,'Instantáneo 50G',2,2185.00,2185.00,1,_binary ''),(2,'7613287911841','Café','Presto',1,'Instantáneo Unidad',7,100.00,100.00,1,_binary ''),(3,'748366200749','Café','Rey',1,'500G',6,3470.00,3470.00,2,_binary ''),(4,'748366200732','Café','Prestos',1,'240G',26,1020.00,1020.00,2,_binary ''),(5,'070847019848','Monster Energy Ultra','Monster',1,'Monster Energy Ultra 473ML',5,1500.00,1500.00,1,_binary '');
 /*!40000 ALTER TABLE `tbproducto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -239,6 +296,35 @@ LOCK TABLES `tbusuario` WRITE;
 /*!40000 ALTER TABLE `tbusuario` DISABLE KEYS */;
 INSERT INTO `tbusuario` VALUES (1,'207960874','BRANDON JOSUE CORELLA SANCHEZ','corellabrandon@gmail.com','$2y$10$WS3HaZ1oTlLVZFGdV2ftcu0oIECgvUrIE9Q6FL4tW2iu6hORhYMYK',2,_binary ''),(2,'204470866','FABIO GERARDO CORELLA DIAZ','fabio@gmail.com','$2y$10$q8foiDQovXmtX4KwR7ux.OhWYMfFjqbWfnu/JAyvvX1aB8KcZB50a',1,_binary ''),(3,'204780856','MELVIN GERARDO BRENES ROJAS','marvin@gmail.com','$2y$10$GXa9lWntqZbvaR.QSKQMtOXTzm/J4F9WhvNh/Xqe0kwI4QRLLtLqO',2,_binary '');
 /*!40000 ALTER TABLE `tbusuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbventa`
+--
+
+DROP TABLE IF EXISTS `tbventa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbventa` (
+  `idVenta` int NOT NULL AUTO_INCREMENT,
+  `fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `total` decimal(10,2) NOT NULL,
+  `idMetodoPago` int NOT NULL,
+  `montoRecibido` decimal(10,2) DEFAULT NULL,
+  `vuelto` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`idVenta`),
+  KEY `FK_VENTA_METODO_PAGO` (`idMetodoPago`),
+  CONSTRAINT `FK_VENTA_METODO_PAGO` FOREIGN KEY (`idMetodoPago`) REFERENCES `tbmetodopago` (`idMetodoPago`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbventa`
+--
+
+LOCK TABLES `tbventa` WRITE;
+/*!40000 ALTER TABLE `tbventa` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbventa` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -654,6 +740,52 @@ BEGIN
 	SELECT  nombreCliente
 	FROM tbcredito 
     WHERE idEstadoCredito = 2;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ConsultarMetodoPago` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarMetodoPago`()
+BEGIN
+	SELECT
+		  idMetodoPago,
+		  nombreMetodoPago
+	FROM tbmetodopago;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ConsultarProductoPorCodigo` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarProductoPorCodigo`(
+    IN pCodigoBarras VARCHAR(255)
+)
+BEGIN
+    SELECT idProducto, nombre, precio, codigoBarras
+    FROM tbproducto
+    WHERE codigoBarras = pCodigoBarras
+    LIMIT 1;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1102,7 +1234,7 @@ BEGIN
     DECLARE vProductoExistente INT;
     
     SELECT 	COUNT(*) INTO vProductoExistente
-    FROM 	tbcliente
+    FROM 	tbproducto
     WHERE 	codigoBarras = pCodigoBarras;
 
     IF vProductoExistente > 0 THEN
@@ -1219,4 +1351,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-04 18:59:18
+-- Dump completed on 2026-01-05 16:29:24
