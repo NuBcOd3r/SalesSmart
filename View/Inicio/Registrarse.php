@@ -1,5 +1,6 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/View/LayoutExterno.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/InicioController.php';
 ?>
 
 <!doctype html>
@@ -26,12 +27,12 @@
                         <form name="formRegistro" id="formRegistro" method="POST" action="">
 
                             <div class="form-floating mb-3 text-start">
-                                <input type="text" class="form-control" id="cedula" name="cedula">
+                                <input type="text" class="form-control" id="cedula" name="cedula" onkeyup="ConsultarNombre(); soloNumeros(this);">
                                 <label for="cedula">Cedula</label>
                             </div>
 
                             <div class="form-floating mb-3 text-start">
-                                <input type="text" class="form-control" id="nombreCompleto" name="nombreCompleto">
+                                <input type="text" class="form-control" id="nombreCompleto" name="nombreCompleto" readOnly>
                                 <label for="nombreCompleto">Nombre Completo</label>
                             </div>
 
@@ -71,6 +72,28 @@
 <?php
     ShowJS()
 ?>
+
+    <?php if (isset($_SESSION['sweet_success'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: '<?= $_SESSION['sweet_success'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_success']); endif; ?>
+
+    <?php if (isset($_SESSION['sweet_error'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '<?= $_SESSION['sweet_error'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_error']); endif; ?>
 </body>
 
 </html>

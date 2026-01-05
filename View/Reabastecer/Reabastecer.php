@@ -1,5 +1,7 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/View/LayoutInterno.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/ReabastecerController.php';
+    $productos = ConsultarProductos();
 ?>
 
 <!doctype html>
@@ -43,27 +45,69 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php
+                    foreach ($productos as $producto) {
+
+                        if ($producto['cantidad'] <= 5) 
+                        {
+                            $badgeStock = 'danger';
+                        } 
+                        elseif ($producto['cantidad'] <= 10) 
+                        {
+                            $badgeStock = 'warning';
+                        } 
+                        else 
+                        {
+                            $badgeStock = 'success';
+                        }
+
+                        echo '
                         <tr>
-                            <td class="text-center align-middle"><strong>1</strong></td>
-                            <td class="text-center align-middle"><strong>7501234567890</strong></td>
-                            <td class="text-center align-middle"><strong>Laptop HP Pavilion</strong></td>
-                            <td class="text-center align-middle"><strong>HP</strong></td>
-                            <td class="text-center align-middle">Intel Core i5, 8GB RAM, 256GB SSD</td>
-                            <td class="text-center align-middle"><span class="badge bg-success">15</span></td>
-                            <td class="text-center align-middle"><strong>₡450,000</strong></td>
-                            <td class="text-center align-middle"><strong>₡500,000</strong></td>
-                            <td class="text-center align-middle"><span class="badge bg-primary">Electrónica</span></td>
-                            <td class="text-center align-middle">Pipasa</td>
+                            <td class="text-center align-middle"><strong>'.$producto['idProducto'].'</strong></td>
+
+                            <td class="text-center align-middle"><strong>'.$producto['codigoBarras'].'</strong></td>
+
+                            <td class="text-center align-middle"><strong>'.$producto['nombre'].'</strong></td>
+
+                            <td class="text-center align-middle">'.$producto['marca'].'</td>
+
+                            <td class="text-center align-middle">'.$producto['descripcion'].'</td>
+
+                            <td class="text-center align-middle">
+                                <span class="badge bg-'.$badgeStock.'">'.$producto['cantidad'].'</span>
+                            </td>
+
+                            <td class="text-center align-middle">
+                                ₡'.number_format($producto['precioUnitario'], 2).'
+                            </td>
+
+                            <td class="text-center align-middle">
+                                ₡'.number_format($producto['precio'], 2).'
+                            </td>
+
+                            <td class="text-center align-middle">
+                                <span class="badge bg-info">'.$producto['nombreCategoria'].'</span>
+                            </td>
+
+                            <td class="text-center align-middle">'.$producto['nombreProveedor'].'</td>
+
                             <td class="text-center align-middle">
                                 <div class="action-buttons">
                                     <button 
                                         class="btn btn-sm btn-outline-success"
-                                        onclick="abrirModalReabastecer(1, 'Laptop HP Pavilion', 15)">
+                                        onclick="abrirModalReabastecer(
+                                            '.$producto['idProducto'].',
+                                            \''.addslashes($producto['nombre']).'\',
+                                            '.$producto['cantidad'].'
+                                        )">
                                         <i class="fas fa-boxes-stacked"></i>
                                     </button>
                                 </div>
                             </td>
-                        </tr>
+                        </tr>';
+                    }
+                    ?>
+
                     </tbody>
                 </table>
             </div>
@@ -73,7 +117,7 @@
     <div class="modal fade" id="modalReabastecer" tabindex="-1">
         <div class="modal-dialog modal-sm modal-dialog-centered">
             <div class="modal-content">
-                <form method="POST" action="ReabastecerProducto.php">
+                <form method="POST" action="" id="formModal" name="formModal">
                     <div class="modal-header">
                         <h5 class="modal-title">
                             <i class="fas fa-truck-loading me-2"></i>
@@ -102,7 +146,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success w-100">
+                        <button type="submit" class="btn btn-success w-100" id="btnReabastecer" name="btnReabastecer">
                             <i class="fas fa-plus me-1"></i> Reabastecer
                         </button>
                     </div>
@@ -113,6 +157,28 @@
 
     <?php ShowJS() ?>
     <script src="../JS/Productos.js"></script>
+
+    <?php if (isset($_SESSION['sweet_success'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: '<?= $_SESSION['sweet_success'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_success']); endif; ?>
+
+    <?php if (isset($_SESSION['sweet_error'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '<?= $_SESSION['sweet_error'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_error']); endif; ?>
 </body>
 
 </html>

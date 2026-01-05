@@ -1,5 +1,6 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/View/LayoutExterno.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/InicioController.php';
 ?>
 
 <!doctype html>
@@ -22,7 +23,16 @@
                         <h5 class="card-title mb-4 fw-light fs-5">
                             <strong>Iniciar Sesión</strong>
                         </h5>
-
+                        <?php
+                            if(isset($_POST["Mensaje"]))
+                            {
+                                echo '<div class="alert alert-danger alert-dismissible mb-4">' . $_POST["Mensaje"] . '</div>';
+                            }
+                            if(isset($_POST["MensajeExito"]))
+                            {
+                                echo '<div class="alert alert-success alert-dismissible mb-4">' . $_POST["MensajeExito"] . '</div>';
+                            }
+                        ?>
                         <form name="formLogin" id="formLogin" method="POST" action="">
 
                             <div class="form-floating mb-3 text-start">
@@ -56,6 +66,28 @@
 <?php
     ShowJS()
 ?>
+
+    <?php if (isset($_SESSION['sweet_success'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: '<?= $_SESSION['sweet_success'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_success']); endif; ?>
+
+    <?php if (isset($_SESSION['sweet_error'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '<?= $_SESSION['sweet_error'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_error']); endif; ?>
 </body>
 
 </html>

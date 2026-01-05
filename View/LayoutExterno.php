@@ -1,5 +1,7 @@
 <?php
-
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
     function ShowCSS()
     {
         echo
@@ -27,14 +29,3 @@
         ';
     }
 ?>
-
-
-<script>
-  window.addEventListener("pageshow", function (event) 
-  {
-    if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") 
-    {
-      window.location.reload(true);
-    }
-  });
-</script>

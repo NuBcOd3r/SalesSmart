@@ -1,9 +1,16 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/CreditoController.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/InicioController.php';
     $notificaciones = ConsultarCreditosVencidos();
 
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
+    }
+
+    if(!isset($_SESSION["nombreCompleto"]))
+    {
+      header("Location: ../../View/Inicio/InicioSesion.php");
+      exit;
     }
 
     function ShowCSS()
@@ -40,6 +47,13 @@
 
     function ShowNav()
     {
+      $nombreCompleto = "";
+      $nombreRol = "";
+      if(isset($_SESSION["nombreCompleto"]))
+      {
+        $nombreCompleto = $_SESSION["nombreCompleto"];
+        $nombreRol = $_SESSION["nombreRol"];
+      }
       echo
       '
         <nav class="sidebar" id="sidebar">
@@ -51,6 +65,10 @@
                 </button>
             </div>
             <ul class="nav-menu">
+            ';
+            if($nombreRol == 'Administrador(a)')
+            {
+                echo'
                 <li class="nav-item">
                     <a href="#" class="nav-link" onclick="setActive(this)">
                         <i class="fas fa-home"></i>
@@ -81,6 +99,12 @@
                         <span>Proveedores</span>
                     </a>
                 </li>
+                ';
+            }
+            elseif($nombreRol == 'Empleado(a)')
+            {
+                echo
+                '
                 <li class="nav-item">
                     <a href="../Principal/Home.php" class="nav-link" onclick="setActive(this)">
                         <i class="fas fa-home"></i>
@@ -100,6 +124,10 @@
                     </a>
                 </li>
             </ul>
+            ';
+            }
+        echo
+        '
         </nav>
 
         <div class="main-content">
@@ -111,27 +139,32 @@
 
                         <div class="text-center">
                             <div class="fw-bold">
-                                BRANDON JOSUE CORELLA SANCHEZ
+                                '.$nombreCompleto.'
                             </div>
                             <small class="text-muted">
-                                Administrador
+                                '.$nombreRol.'
                             </small>
                         </div>
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-end text-start shadow">
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="CambiarContrasenna.php">
+                            <a class="dropdown-item d-flex align-items-center" href="../../View/Principal/CambiarContrasenna.php">
                                 <i class="fa-solid fa-key me-2"></i>
                                 Cambiar Contraseña
                             </a>
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center text-danger" href="Logout.php">
-                                <i class="fa-solid fa-right-from-bracket me-2"></i>
-                                Cerrar Sesión
-                            </a>
+                            <form action="" method="POST">
+                                <button type="submit" 
+                                        class="dropdown-item text-danger fw-semibold" 
+                                        id="btnSalir" 
+                                        name="btnSalir">
+                                    <i class="fa-solid fa-right-from-bracket me-2"></i>
+                                    <span class="align-middle">Cerrar Sesión</span>
+                                </button>
+                            </form>
                         </li>
                     </ul>
 

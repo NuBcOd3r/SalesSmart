@@ -1,5 +1,6 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/View/LayoutExterno.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/InicioController.php';
 ?>
 
 <!doctype html>
@@ -56,6 +57,28 @@
 <?php
     ShowJS()
 ?>
+
+    <?php if (isset($_SESSION['sweet_success'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: '<?= $_SESSION['sweet_success'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_success']); endif; ?>
+
+    <?php if (isset($_SESSION['sweet_error'])): ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: '<?= $_SESSION['sweet_error'] ?>',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+    <?php unset($_SESSION['sweet_error']); endif; ?>
 </body>
 
 </html>

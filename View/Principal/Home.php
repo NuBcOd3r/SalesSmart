@@ -110,25 +110,7 @@
                             <i class="fa-solid fa-receipt me-2"></i>Resumen de Venta
                         </h5>
 
-                        <div class="mb-3">
-                            <label for="impuesto" class="form-label-custom">
-                                <i class="fa-solid fa-percent me-2"></i>Impuesto
-                            </label>
-                            <select class="form-control-custom form-select-custom" id="impuesto" name="impuesto">
-                                <option value="0">Sin IVA (0%)</option>
-                                <option value="13" selected>Con IVA (13%)</option>
-                            </select>
-                        </div>
-
-                        <div class="resumen-totales">
-                            <div class="resumen-item">
-                                <span>Subtotal:</span>
-                                <span class="valor">₡584,000.00</span>
-                            </div>
-                            <div class="resumen-item">
-                                <span>IVA (13%):</span>
-                                <span class="valor">₡75,920.00</span>
-                            </div>
+                        <div>
                             <div class="resumen-item resumen-total">
                                 <span>Total:</span>
                                 <span class="valor-total">₡659,920.00</span>
@@ -143,7 +125,6 @@
                                 <option value="efectivo">Efectivo</option>
                                 <option value="tarjeta">Tarjeta</option>
                                 <option value="sinpe">SINPE Móvil</option>
-                                <option value="credito">Crédito</option>
                             </select>
                         </div>
 
@@ -167,19 +148,6 @@
                                     <input type="text" class="form-control-custom border-start-0" id="vuelto" name="vuelto" placeholder="0.00" readonly>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="cliente" class="form-label-custom">
-                                <i class="fa-solid fa-user me-2"></i>Cliente (Opcional)
-                            </label>
-                            <input 
-                                type="text" 
-                                class="form-control-custom" 
-                                id="cliente" 
-                                name="cliente"
-                                placeholder="Nombre o cédula del cliente"
-                            >
                         </div>
 
                         <div class="d-grid gap-2 mt-4">
