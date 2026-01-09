@@ -63,4 +63,50 @@
 
         return true;
     }
+
+    function ConsultarVentasModel ()
+    {
+        try
+        {
+            $context = OpenConnection();
+            $sentencia = "CALL ConsultarVentas()";
+            $resultado = $context -> query($sentencia);
+            $datos = [];
+            while ($row = $resultado->fetch_assoc()) 
+            {
+                $datos[] = $row;
+            }
+            $resultado->free();
+            CloseConnection($context);
+            return $datos;
+        }
+        catch(Exception $error)
+        {
+            SaveError($error);
+            return false;
+        }
+    }
+
+    function ConsultarDetalleModel ($idVenta)
+    {
+        try
+        {
+            $context = OpenConnection();
+            $sentencia = "CALL ConsultarDetalleVenta('$idVenta')";
+            $resultado = $context -> query($sentencia);
+            $datos = [];
+            while ($row = $resultado->fetch_assoc()) 
+            {
+                $datos[] = $row;
+            }
+            $resultado->free();
+            CloseConnection($context);
+            return $datos;
+        }
+        catch(Exception $error)
+        {
+            SaveError($error);
+            return false;
+        }
+    }
 ?>

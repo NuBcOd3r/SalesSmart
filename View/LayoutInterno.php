@@ -29,6 +29,7 @@
             <link rel="stylesheet" href="../CSS/EstilosProducto.css">
             <link rel="stylesheet" href="../CSS/EstilosCredito.css">
             <link rel="stylesheet" href="../CSS/EstilosVenta.css">
+            <link rel="stylesheet" href="../CSS/EstilosDetalle.css">
         </head>
         ';
     }
@@ -122,6 +123,12 @@
                     <a href="../Creditos/Creditos.php" class="nav-link" onclick="setActive(this)">
                         <i class="fas fa-users"></i>
                         <span>Créditos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../Principal/Historial.php" class="nav-link" onclick="setActive(this)">
+                        <i class="fas fa-history"></i>
+                        <span>Historial de Ventas</span>
                     </a>
                 </li>
             </ul>

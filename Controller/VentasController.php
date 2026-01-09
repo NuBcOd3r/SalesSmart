@@ -10,4 +10,14 @@
     {
         return ConsultarProductoPorCodigoModel($codigo);
     }
+
+    function ConsultarVentas()
+    {
+        return ConsultarVentasModel();
+    }
+
+    function ConsultarDetalle($idVenta)
+    {
+        return ConsultarDetalleModel($idVenta);
+    }
 ?>

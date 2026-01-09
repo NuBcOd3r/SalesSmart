@@ -103,7 +103,7 @@ CREATE TABLE `tbdetalleventa` (
 
 LOCK TABLES `tbdetalleventa` WRITE;
 /*!40000 ALTER TABLE `tbdetalleventa` DISABLE KEYS */;
-INSERT INTO `tbdetalleventa` VALUES (4,8,1,NULL,2,750.00,1500.00,1500.00),(5,9,5,NULL,1,1500.00,1500.00,1500.00),(7,12,5,NULL,2,1500.00,3000.00,3000.00),(8,14,5,'null',1,1500.00,1500.00,1500.00),(9,17,2,NULL,1,100.00,100.00,100.00),(10,18,2,NULL,1,100.00,100.00,100.00),(11,22,4,'null',1,1020.00,1020.00,1020.00),(12,23,NULL,'Q',1,1.00,1.00,1.00),(13,24,4,'null',1,1020.00,1020.00,1020.00),(14,24,NULL,'Queso',1,475.00,475.00,475.00),(15,25,4,'null',2,1020.00,2040.00,2040.00),(16,25,NULL,'Pan',1,1000.00,1000.00,1000.00),(17,25,NULL,'Queso Amarillo',2,100.00,200.00,200.00),(18,26,5,'null',1,1500.00,1500.00,1500.00),(19,26,NULL,'Tomate',1,1050.00,1050.00,1050.00),(20,26,NULL,'Salchichon',1,500.00,500.00,500.00),(21,26,NULL,'Aguacate',1,420.00,420.00,420.00);
+INSERT INTO `tbdetalleventa` VALUES (4,8,1,NULL,2,750.00,1500.00,1500.00),(5,9,5,NULL,1,1500.00,1500.00,1500.00),(7,12,5,NULL,2,1500.00,3000.00,3000.00),(8,14,5,'null',1,1500.00,1500.00,1500.00),(9,17,2,NULL,1,100.00,100.00,100.00),(10,18,2,NULL,1,100.00,100.00,100.00),(11,22,4,'null',1,1020.00,1020.00,1020.00),(12,23,NULL,'Q',1,1.00,1.00,1.00),(13,24,4,'null',1,1020.00,1020.00,1020.00),(14,24,NULL,'Queso',1,475.00,475.00,475.00),(15,25,4,'',2,1020.00,2040.00,2040.00),(16,25,NULL,'Pan',1,1000.00,1000.00,1000.00),(17,25,NULL,'Queso Amarillo',2,100.00,200.00,200.00),(18,26,5,'null',1,1500.00,1500.00,1500.00),(19,26,NULL,'Tomate',1,1050.00,1050.00,1050.00),(20,26,NULL,'Salchichon',1,500.00,500.00,500.00),(21,26,NULL,'Aguacate',1,420.00,420.00,420.00);
 /*!40000 ALTER TABLE `tbdetalleventa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -214,7 +214,7 @@ CREATE TABLE `tbproducto` (
 
 LOCK TABLES `tbproducto` WRITE;
 /*!40000 ALTER TABLE `tbproducto` DISABLE KEYS */;
-INSERT INTO `tbproducto` VALUES (1,'760861000037 ','Café','Presto',1,'Instantáneo 50G',0,2185.00,2185.00,1,_binary ''),(2,'7613287911841','Café','Presto',1,'Instantáneo Unidad',5,100.00,100.00,1,_binary ''),(3,'748366200749','Café','Rey',1,'500G',6,3470.00,3470.00,2,_binary ''),(4,'748366200732','Café','Prestos',1,'240G',22,1020.00,1020.00,2,_binary ''),(5,'070847019848','Monster Energy Ultra','Monster',1,'Monster Energy Ultra 473ML',5,1500.00,1500.00,1,_binary '');
+INSERT INTO `tbproducto` VALUES (1,'760861000037 ','Café','Presto',1,'Instantáneo 50G',45,2185.00,2185.00,1,_binary ''),(2,'7613287911841','Café','Presto',1,'Instantáneo Unidad',5,100.00,100.00,1,_binary ''),(3,'748366200749','Café','Rey',1,'500G',6,3470.00,3470.00,2,_binary ''),(4,'748366200732','Café','Prestos',1,'240G',22,1020.00,1020.00,2,_binary ''),(5,'070847019848','Monster Energy Ultra','Monster',1,'Monster Energy Ultra 473ML',5,1500.00,1500.00,1,_binary '');
 /*!40000 ALTER TABLE `tbproducto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -749,6 +749,42 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ConsultarDetalleVenta` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarDetalleVenta`(
+    IN pIdVenta INT
+)
+BEGIN
+    SELECT  
+        V.idDetalleVenta,
+        V.idProducto,
+        P.nombre AS nombreProducto,
+        P.marca,
+        P.descripcion,
+        V.nombreManual,
+        V.cantidad,
+        V.precio,
+        V.subtotal,
+        (SELECT SUM(subtotal)
+         FROM tbdetalleventa
+         WHERE idVenta = pIdVenta) AS totalVenta
+    FROM tbdetalleventa V
+    LEFT JOIN tbproducto P  ON V.idProducto = P.idProducto
+    WHERE V.idVenta = pIdVenta;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `ConsultarMetodoPago` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -895,6 +931,38 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ConsultarProductosGlobal` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarProductosGlobal`()
+BEGIN
+	SELECT  idProducto,
+			codigoBarras, 
+			nombre, 
+			marca, 
+			C.nombreCategoria, 
+			descripcion,
+			cantidad,
+			precioUnitario, 
+			precio, 
+			v.nombreProveedor
+	FROM tbproducto P
+    INNER JOIN tbcategoria C ON P.idCategoria = C.idCategoria
+    INNER JOIN tbproveedores V ON P.idProveedor = V.idProveedor
+    WHERE P.estado = 1;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `ConsultarProveedores` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -968,6 +1036,33 @@ BEGIN
 			correoElectronico
 	FROM tbproveedores
     WHERE idProveedor = pIdProveedor;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ConsultarVentas` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarVentas`()
+BEGIN
+	SELECT  idVenta,
+			nombreCompleto, 
+			fecha,
+			cantidadArticulos, 
+			total,
+			nombreMetodoPago
+	FROM tbventa V
+    INNER JOIN tbusuario U ON V.idUsuario = U.idUsuario
+    INNER JOIN tbmetodopago M ON V.idMetodoPago = M.idMetodoPago;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1457,4 +1552,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-09 15:13:07
+-- Dump completed on 2026-01-09 16:25:49

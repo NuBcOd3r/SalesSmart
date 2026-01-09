@@ -6,7 +6,7 @@
         try
         {
             $context = OpenConnection();
-            $sentencia = "CALL ConsultarProductos()";
+            $sentencia = "CALL ConsultarProductosGlobal()";
             $resultado = $context -> query($sentencia);
             $datos = [];
             while ($row = $resultado->fetch_assoc()) 
