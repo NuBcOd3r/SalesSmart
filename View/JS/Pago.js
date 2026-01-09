@@ -40,7 +40,12 @@ function buscarProducto(codigo)
     {
         if (data.error) 
         {
-            alert(data.error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.error,
+                confirmButtonText: 'Aceptar'
+            });
             return;
         }
         agregarProducto(data);
@@ -173,7 +178,12 @@ function agregarProductoManual()
 
     if (nombre === "" || isNaN(precio) || precio <= 0)
     {
-        alert("Ingrese un nombre y un precio válido");
+        Swal.fire({
+            icon: 'warning',
+            title: 'Datos incompletos',
+            text: 'Ingrese un nombre y un precio válido',
+            confirmButtonText: 'Aceptar'
+        });
         return;
     }
 
@@ -240,4 +250,103 @@ function cancelarVenta()
     document.getElementById("precioManual").value = "";
     document.getElementById("codigoBarras").value = "";
     document.getElementById("codigoBarras").focus();
+}
+
+function obtenerDetalleVenta() {
+    const filas = document.querySelectorAll("#detalleVenta tr");
+    let detalle = [];
+
+    filas.forEach(fila => {
+        const idFila = fila.dataset.id;
+        const cantidad = parseFloat(fila.querySelector(".cantidad-input").value);
+        const precio = parseFloat(fila.querySelector(".precio-editable").value);
+        const subtotalTexto = fila.querySelector(".subtotal").innerText.replace("₡", "").trim();
+        const subtotal = parseFloat(subtotalTexto);
+
+        const nombre = fila.querySelector("strong").innerText;
+
+        if (idFila && !idFila.startsWith("manual-")) 
+        {
+            detalle.push({
+                id_producto: parseInt(idFila),
+                nombre_manual: null,
+                cantidad: cantidad,
+                precio_unitario: precio,
+                subtotal: subtotal
+            });
+        } 
+        else 
+        {
+            detalle.push({
+                id_producto: null,
+                nombre_manual: nombre,
+                cantidad: cantidad,
+                precio_unitario: precio,
+                subtotal: subtotal
+            });
+        }
+    });
+
+    console.log(detalle);
+    return detalle;
+}
+
+function guardarVenta() {
+
+    const idMetodoPago = document.getElementById("MetodoPago").value;
+    const total = parseFloat(document.getElementById("totalVenta").textContent);
+    const detalle = obtenerDetalleVenta();
+
+    if (!idMetodoPago) {
+        Swal.fire({
+        icon: 'info',
+        title: 'Método de pago',
+        text: 'Seleccione un método de pago',
+        confirmButtonText: 'Aceptar'
+    });
+        return;
+    }
+
+    if (detalle.length === 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Venta vacía',
+            text: 'No hay productos para procesar la venta',
+            confirmButtonText: 'Aceptar'
+        });
+        return;
+    }
+
+    fetch("../../Ajax/RegistrarVenta.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            idMetodoPago: idMetodoPago,
+            total: total,
+            detalle: detalle
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+        Swal.fire({
+            icon: 'success',
+            title: 'Venta registrada',
+            text: 'La venta se procesó correctamente',
+            confirmButtonText: 'Aceptar'
+        }).then(() => {
+            cancelarVenta();
+        });
+    })
+    .catch(err => {
+        console.error("Error:", err);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al procesar la venta',
+            confirmButtonText: 'Aceptar'
+        });
+    });
 }

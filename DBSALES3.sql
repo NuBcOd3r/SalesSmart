@@ -84,16 +84,17 @@ CREATE TABLE `tbdetalleventa` (
   `idDetalleVenta` int NOT NULL AUTO_INCREMENT,
   `idVenta` int NOT NULL,
   `idProducto` int DEFAULT NULL,
-  `descripcionManual` varchar(255) DEFAULT NULL,
+  `nombreManual` varchar(150) DEFAULT NULL,
   `cantidad` int NOT NULL,
   `precio` decimal(10,2) NOT NULL,
   `subtotal` decimal(10,2) NOT NULL,
+  `total` decimal(10,2) NOT NULL,
   PRIMARY KEY (`idDetalleVenta`),
   KEY `FK_VENTA_DETALLE` (`idVenta`),
   KEY `FK_PRODUCTO_DETALLE` (`idProducto`),
   CONSTRAINT `FK_PRODUCTO_DETALLE` FOREIGN KEY (`idProducto`) REFERENCES `tbproducto` (`idProducto`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `FK_VENTA_DETALLE` FOREIGN KEY (`idVenta`) REFERENCES `tbventa` (`idVenta`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,6 +103,7 @@ CREATE TABLE `tbdetalleventa` (
 
 LOCK TABLES `tbdetalleventa` WRITE;
 /*!40000 ALTER TABLE `tbdetalleventa` DISABLE KEYS */;
+INSERT INTO `tbdetalleventa` VALUES (4,8,1,NULL,2,750.00,1500.00,1500.00),(5,9,5,NULL,1,1500.00,1500.00,1500.00),(7,12,5,NULL,2,1500.00,3000.00,3000.00),(8,14,5,'null',1,1500.00,1500.00,1500.00),(9,17,2,NULL,1,100.00,100.00,100.00),(10,18,2,NULL,1,100.00,100.00,100.00),(11,22,4,'null',1,1020.00,1020.00,1020.00),(12,23,NULL,'Q',1,1.00,1.00,1.00),(13,24,4,'null',1,1020.00,1020.00,1020.00),(14,24,NULL,'Queso',1,475.00,475.00,475.00),(15,25,4,'null',2,1020.00,2040.00,2040.00),(16,25,NULL,'Pan',1,1000.00,1000.00,1000.00),(17,25,NULL,'Queso Amarillo',2,100.00,200.00,200.00),(18,26,5,'null',1,1500.00,1500.00,1500.00),(19,26,NULL,'Tomate',1,1050.00,1050.00,1050.00),(20,26,NULL,'Salchichon',1,500.00,500.00,500.00),(21,26,NULL,'Aguacate',1,420.00,420.00,420.00);
 /*!40000 ALTER TABLE `tbdetalleventa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,7 +214,7 @@ CREATE TABLE `tbproducto` (
 
 LOCK TABLES `tbproducto` WRITE;
 /*!40000 ALTER TABLE `tbproducto` DISABLE KEYS */;
-INSERT INTO `tbproducto` VALUES (1,'760861000037 ','Café','Presto',1,'Instantáneo 50G',2,2185.00,2185.00,1,_binary ''),(2,'7613287911841','Café','Presto',1,'Instantáneo Unidad',7,100.00,100.00,1,_binary ''),(3,'748366200749','Café','Rey',1,'500G',6,3470.00,3470.00,2,_binary ''),(4,'748366200732','Café','Prestos',1,'240G',26,1020.00,1020.00,2,_binary ''),(5,'070847019848','Monster Energy Ultra','Monster',1,'Monster Energy Ultra 473ML',5,1500.00,1500.00,1,_binary '');
+INSERT INTO `tbproducto` VALUES (1,'760861000037 ','Café','Presto',1,'Instantáneo 50G',0,2185.00,2185.00,1,_binary ''),(2,'7613287911841','Café','Presto',1,'Instantáneo Unidad',5,100.00,100.00,1,_binary ''),(3,'748366200749','Café','Rey',1,'500G',6,3470.00,3470.00,2,_binary ''),(4,'748366200732','Café','Prestos',1,'240G',22,1020.00,1020.00,2,_binary ''),(5,'070847019848','Monster Energy Ultra','Monster',1,'Monster Energy Ultra 473ML',5,1500.00,1500.00,1,_binary '');
 /*!40000 ALTER TABLE `tbproducto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,15 +309,15 @@ DROP TABLE IF EXISTS `tbventa`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbventa` (
   `idVenta` int NOT NULL AUTO_INCREMENT,
+  `idUsuario` int NOT NULL,
   `fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `cantidadArticulos` varchar(45) NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `idMetodoPago` int NOT NULL,
-  `montoRecibido` decimal(10,2) DEFAULT NULL,
-  `vuelto` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`idVenta`),
   KEY `FK_VENTA_METODO_PAGO` (`idMetodoPago`),
   CONSTRAINT `FK_VENTA_METODO_PAGO` FOREIGN KEY (`idMetodoPago`) REFERENCES `tbmetodopago` (`idMetodoPago`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -324,6 +326,7 @@ CREATE TABLE `tbventa` (
 
 LOCK TABLES `tbventa` WRITE;
 /*!40000 ALTER TABLE `tbventa` DISABLE KEYS */;
+INSERT INTO `tbventa` VALUES (8,1,'2026-01-09 14:09:26','2',1500.00,1),(9,1,'2026-01-09 14:21:47','1',1500.00,2),(12,1,'2026-01-09 14:26:07','2',3000.00,1),(14,1,'2026-01-09 14:28:41','1',1500.00,2),(17,1,'2026-01-09 14:38:05','1',100.00,1),(18,1,'2026-01-09 14:38:57','1',100.00,1),(22,1,'2026-01-09 14:50:16','1',1020.00,1),(23,1,'2026-01-09 14:52:12','1',1.00,2),(24,1,'2026-01-09 14:52:59','2',1495.00,2),(25,1,'2026-01-09 14:56:06','5',3240.00,1),(26,1,'2026-01-09 15:06:37','4',3470.00,1);
 /*!40000 ALTER TABLE `tbventa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -785,6 +788,8 @@ BEGIN
     SELECT idProducto, nombre, precio, codigoBarras
     FROM tbproducto
     WHERE codigoBarras = pCodigoBarras
+    AND estado = 1
+    AND cantidad > 0
     LIMIT 1;
 END ;;
 DELIMITER ;
@@ -1311,6 +1316,107 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `RegistrarVentaCompleta` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RegistrarVentaCompleta`(
+    IN p_idUsuario INT,
+    IN p_idMetodoPago INT,
+    IN p_cantidadArticulos INT,
+    IN p_total DECIMAL(10,2),
+    IN p_detalle JSON
+)
+BEGIN
+    DECLARE v_idVenta INT;
+    DECLARE i INT DEFAULT 0;
+    DECLARE v_len INT;
+
+    DECLARE v_idProducto INT;
+    DECLARE v_nombreManual VARCHAR(150);
+    DECLARE v_cantidad INT;
+    DECLARE v_precio DECIMAL(10,2);
+    DECLARE v_subtotal DECIMAL(10,2);
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Error interno en RegistrarVentaCompleta';
+    END;
+
+    START TRANSACTION;
+
+    INSERT INTO tbventa
+        (idUsuario, cantidadArticulos, total, idMetodoPago)
+    VALUES
+        (p_idUsuario, p_cantidadArticulos, p_total, p_idMetodoPago);
+
+    SET v_idVenta = LAST_INSERT_ID();
+    SET v_len = JSON_LENGTH(p_detalle);
+
+    WHILE i < v_len DO
+
+        SET v_idProducto = NULLIF(
+            JSON_UNQUOTE(JSON_EXTRACT(p_detalle, CONCAT('$[', i, '].id_producto'))),
+            'null'
+        );
+
+        SET v_nombreManual =
+            JSON_UNQUOTE(JSON_EXTRACT(p_detalle, CONCAT('$[', i, '].nombre_manual')));
+
+        SET v_cantidad =
+            JSON_UNQUOTE(JSON_EXTRACT(p_detalle, CONCAT('$[', i, '].cantidad')));
+
+        SET v_precio =
+            JSON_UNQUOTE(JSON_EXTRACT(p_detalle, CONCAT('$[', i, '].precio_unitario')));
+
+        SET v_subtotal =
+            JSON_UNQUOTE(JSON_EXTRACT(p_detalle, CONCAT('$[', i, '].subtotal')));
+
+        INSERT INTO tbdetalleventa
+        (
+            idVenta,
+            idProducto,
+            nombreManual,
+            cantidad,
+            precio,
+            subtotal,
+            total
+        )
+        VALUES
+        (
+            v_idVenta,
+            v_idProducto,
+            v_nombreManual,
+            v_cantidad,
+            v_precio,
+            v_subtotal,
+            v_subtotal
+        );
+
+        IF v_idProducto IS NOT NULL THEN
+            UPDATE tbproducto
+            SET cantidad = cantidad - v_cantidad
+            WHERE idProducto = v_idProducto;
+        END IF;
+
+        SET i = i + 1;
+    END WHILE;
+
+    COMMIT;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `ValidarCorreo` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1351,4 +1457,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-05 16:29:24
+-- Dump completed on 2026-01-09 15:13:07

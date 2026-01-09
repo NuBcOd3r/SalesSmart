@@ -28,27 +28,22 @@
                                     <i class="fa-solid fa-search me-2"></i>Código de Barras
                                 </label>
                                 <div class="input-group input-group-scan">
-                                    <input 
-                                        type="text" 
-                                        class="form-control-custom"
-                                        id="codigoBarras" 
-                                        name="codigoBarras"
-                                        placeholder="Escanee o escriba el código de barras"
-                                        autofocus
-                                    >
+                                    <input type="text" class="form-control-custom" id="codigoBarras" name="codigoBarras" placeholder="Escanee o escriba el código de barras" autofocus >
                                 </div>
                             </div>
                         </div>
+
                         <div class="row mt-3 align-items-end">
+
                             <div class="col-md-5 mb-3">
-                                <label class="form-label-custom">
+                                <label class="form-label-custom" for="nombreManual">
                                     <i class="fa-solid fa-box-open me-2"></i>Nombre del Producto
                                 </label>
                                 <input type="text" class="form-control-custom" id="nombreManual">
                             </div>
 
                             <div class="col-md-4 mb-3">
-                                <label class="form-label-custom">
+                                <label class="form-label-custom" for="precioManual">
                                     <i class="fa-solid fa-tag me-2"></i>Precio
                                 </label>
                                 <input type="number" class="form-control-custom" id="precioManual" step="0.01" min="0">
@@ -59,6 +54,7 @@
                                     <i class="fa-solid fa-plus"></i> Agregar
                                 </button>
                             </div>
+                            
                         </div>
 
                         <div class="table-responsive mt-4">
@@ -139,7 +135,7 @@
                         </div>
 
                         <div class="d-grid gap-2 mt-4">
-                            <button type="button" class="btn-finalizar-venta">
+                            <button type="button" class="btn-finalizar-venta" onclick="guardarVenta()">
                                 <i class="fa-solid fa-check-circle me-2"></i>Finalizar Venta
                             </button>
                             <button type="button" class="btn-cancelar-venta" onclick="cancelarVenta()">

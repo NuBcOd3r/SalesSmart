@@ -29,4 +29,38 @@
         CloseConnection($context);
         return $producto;
     }
+
+    function RegistrarVentaModel($idUsuario, $idMetodoPago, $cantidadArticulos, $total, $detalle)
+    {
+        $context = OpenConnection();
+
+        $jsonDetalle = json_encode($detalle, JSON_UNESCAPED_UNICODE);
+
+        $stmt = $context->prepare("CALL RegistrarVentaCompleta(?, ?, ?, ?, ?)");
+
+        $stmt->bind_param(
+            "iiids",
+            $idUsuario,
+            $idMetodoPago,
+            $cantidadArticulos,
+            $total,
+            $jsonDetalle
+        );
+
+        if (!$stmt->execute()) {
+            error_log("ERROR SP: " . $stmt->error);
+            return false;
+        }
+
+        do {
+            if ($result = $stmt->get_result()) {
+                $result->free();
+            }
+        } while ($stmt->more_results() && $stmt->next_result());
+
+        $stmt->close();
+        CloseConnection($context);
+
+        return true;
+    }
 ?>
