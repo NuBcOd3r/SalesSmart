@@ -1,7 +1,7 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/CreditoController.php';
     include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/InicioController.php';
-    $notificaciones = ConsultarCreditosVencidos();
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/SalesSmart/Controller/CreditoController.php';
 
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -30,6 +30,7 @@
             <link rel="stylesheet" href="../CSS/EstilosCredito.css">
             <link rel="stylesheet" href="../CSS/EstilosVenta.css">
             <link rel="stylesheet" href="../CSS/EstilosDetalle.css">
+            <link rel="stylesheet" href="../CSS/EstilosDashboard.css">
         </head>
         ';
     }
@@ -49,6 +50,7 @@
 
     function ShowNav()
     {
+      $notificaciones = ConsultarCreditosVencidos();
       $nombreCompleto = "";
       $nombreRol = "";
       if(isset($_SESSION["nombreCompleto"]))
@@ -72,13 +74,13 @@
             {
                 echo'
                 <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="setActive(this)">
+                    <a href="../Dashboard/Dashboard.php" class="nav-link" onclick="setActive(this)">
                         <i class="fas fa-home"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="setActive(this)">
+                    <a href="../Dashboard/Reportes.php" class="nav-link" onclick="setActive(this)">
                         <i class="fas fa-chart-bar"></i>
                         <span>Reportes</span>
                     </a>
@@ -123,6 +125,7 @@
                     <a href="../Creditos/Creditos.php" class="nav-link" onclick="setActive(this)">
                         <i class="fas fa-users"></i>
                         <span>Créditos</span>
+                        <span class="notification-badge">'. $notificaciones.'</span>
                     </a>
                 </li>
                 <li class="nav-item">

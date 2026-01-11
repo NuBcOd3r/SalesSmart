@@ -143,21 +143,18 @@
         try
         {
             $context = OpenConnection();
-            $sentencia = "CALL ConsultarCreditosVencidos()";
-            $resultado = $context -> query($sentencia);
-            $datos = [];
-            while ($row = $resultado->fetch_assoc()) 
-            {
-                $datos[] = $row;
-            }
+            $resultado = $context->query("CALL ConsultarCreditosVencidos()");
+            $fila = $resultado->fetch_assoc();
             $resultado->free();
             CloseConnection($context);
-            return $datos;
+
+            return (int)$fila['vencidos'];
         }
         catch(Exception $error)
         {
             SaveError($error);
-            return false;
+            return 0;
         }
     }
+
 ?>
