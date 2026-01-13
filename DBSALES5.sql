@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `dbsales` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `dbsales`;
--- MySQL dump 10.13  Distrib 8.0.43, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
 --
 -- Host: localhost    Database: dbsales
 -- ------------------------------------------------------
--- Server version	8.0.43
+-- Server version	8.0.44
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -60,7 +58,7 @@ CREATE TABLE `tbcredito` (
   PRIMARY KEY (`idCredito`),
   KEY `FK_CREDITO_ESTADO` (`idEstadoCredito`),
   CONSTRAINT `FK_CREDITO_ESTADO` FOREIGN KEY (`idEstadoCredito`) REFERENCES `tbestadocredito` (`idEstadoCredito`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +67,7 @@ CREATE TABLE `tbcredito` (
 
 LOCK TABLES `tbcredito` WRITE;
 /*!40000 ALTER TABLE `tbcredito` DISABLE KEYS */;
-INSERT INTO `tbcredito` VALUES (1,'207960874','BRANDON JOSUE CORELLA SANCHEZ',20000.00,'2026-01-02 22:17:59','2026-01-09',3),(2,'204470866','FABIO GERARDO CORELLA DIAZ',58000.00,'2026-01-02 23:08:54','2026-01-17',3),(3,'205870965','YAMILETH GONZALEZ RODRIGUEZ',45000.00,'2026-01-02 23:14:36','2026-01-23',3),(4,'204580856','SOLIS SOTELA FRANKLIN MANUEL',45000.00,'2026-01-02 23:15:27','2026-01-30',3),(5,'204410852','NARANJO OCAMPO GERARDO ELFIDIO',41000.00,'2026-01-02 23:19:35','2026-01-08',3),(6,'204560452','FLORIBETH VARGAS ALVARADO',25000.00,'2026-01-02 23:21:24','2026-01-23',3),(7,'201410256','CARRANZA ALVAREZ CORONA',47000.00,'2026-01-02 23:22:19','2026-01-31',3),(8,'201410256','CARRANZA ALVAREZ CORONA',2000.00,'2026-01-03 14:19:54','2026-01-03',3),(9,'207960874','BRANDON JOSUE CORELLA SANCHEZ',55000.00,'2026-01-03 15:41:29','2026-01-10',3),(10,'205850964','GONZALEZ GAITAN CAROLINA MARIA',45000.00,'2026-01-03 20:29:11','2026-01-10',3),(11,'207960874','BRANDON JOSUE CORELLA SANCHEZ',1500.00,'2026-01-04 18:12:38','2026-01-04',1);
+INSERT INTO `tbcredito` VALUES (1,'207960874','BRANDON JOSUE CORELLA SANCHEZ',20000.00,'2026-01-02 22:17:59','2026-01-09',3),(2,'204470866','FABIO GERARDO CORELLA DIAZ',58000.00,'2026-01-02 23:08:54','2026-01-17',3),(3,'205870965','YAMILETH GONZALEZ RODRIGUEZ',45000.00,'2026-01-02 23:14:36','2026-01-23',3),(4,'204580856','SOLIS SOTELA FRANKLIN MANUEL',45000.00,'2026-01-02 23:15:27','2026-01-30',3),(5,'204410852','NARANJO OCAMPO GERARDO ELFIDIO',41000.00,'2026-01-02 23:19:35','2026-01-08',3),(6,'204560452','FLORIBETH VARGAS ALVARADO',25000.00,'2026-01-02 23:21:24','2026-01-23',3),(7,'201410256','CARRANZA ALVAREZ CORONA',47000.00,'2026-01-02 23:22:19','2026-01-31',3),(8,'201410256','CARRANZA ALVAREZ CORONA',2000.00,'2026-01-03 14:19:54','2026-01-03',3),(9,'207960874','BRANDON JOSUE CORELLA SANCHEZ',55000.00,'2026-01-03 15:41:29','2026-01-10',3),(10,'205850964','GONZALEZ GAITAN CAROLINA MARIA',45000.00,'2026-01-03 20:29:11','2026-01-10',3),(11,'207960874','BRANDON JOSUE CORELLA SANCHEZ',1500.00,'2026-01-04 18:12:38','2026-01-04',3),(12,'106780987','PAULA ROSA CHEVEZ SALINA',20000.00,'2026-01-09 19:20:32','2026-01-16',3),(13,'207960874','BRANDON JOSUE CORELLA SANCHEZ',25000.00,'2026-01-10 10:52:32','2026-01-09',2);
 /*!40000 ALTER TABLE `tbcredito` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +92,7 @@ CREATE TABLE `tbdetalleventa` (
   KEY `FK_PRODUCTO_DETALLE` (`idProducto`),
   CONSTRAINT `FK_PRODUCTO_DETALLE` FOREIGN KEY (`idProducto`) REFERENCES `tbproducto` (`idProducto`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `FK_VENTA_DETALLE` FOREIGN KEY (`idVenta`) REFERENCES `tbventa` (`idVenta`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +101,7 @@ CREATE TABLE `tbdetalleventa` (
 
 LOCK TABLES `tbdetalleventa` WRITE;
 /*!40000 ALTER TABLE `tbdetalleventa` DISABLE KEYS */;
-INSERT INTO `tbdetalleventa` VALUES (4,8,1,NULL,2,750.00,1500.00,1500.00),(5,9,5,NULL,1,1500.00,1500.00,1500.00),(7,12,5,NULL,2,1500.00,3000.00,3000.00),(8,14,5,'null',1,1500.00,1500.00,1500.00),(9,17,2,NULL,1,100.00,100.00,100.00),(10,18,2,NULL,1,100.00,100.00,100.00),(11,22,4,'null',1,1020.00,1020.00,1020.00),(12,23,NULL,'Q',1,1.00,1.00,1.00),(13,24,4,'null',1,1020.00,1020.00,1020.00),(14,24,NULL,'Queso',1,475.00,475.00,475.00),(15,25,4,'',2,1020.00,2040.00,2040.00),(16,25,NULL,'Pan',1,1000.00,1000.00,1000.00),(17,25,NULL,'Queso Amarillo',2,100.00,200.00,200.00),(18,26,5,'null',1,1500.00,1500.00,1500.00),(19,26,NULL,'Tomate',1,1050.00,1050.00,1050.00),(20,26,NULL,'Salchichon',1,500.00,500.00,500.00),(21,26,NULL,'Aguacate',1,420.00,420.00,420.00);
+INSERT INTO `tbdetalleventa` VALUES (4,8,1,NULL,2,750.00,1500.00,1500.00),(5,9,5,NULL,1,1500.00,1500.00,1500.00),(7,12,5,NULL,2,1500.00,3000.00,3000.00),(8,14,5,'null',1,1500.00,1500.00,1500.00),(9,17,2,NULL,1,100.00,100.00,100.00),(10,18,2,NULL,1,100.00,100.00,100.00),(11,22,4,'null',1,1020.00,1020.00,1020.00),(12,23,NULL,'Q',1,1.00,1.00,1.00),(13,24,4,'null',1,1020.00,1020.00,1020.00),(14,24,NULL,'Queso',1,475.00,475.00,475.00),(15,25,4,'',2,1020.00,2040.00,2040.00),(16,25,NULL,'Pan',1,1000.00,1000.00,1000.00),(17,25,NULL,'Queso Amarillo',2,100.00,200.00,200.00),(18,26,5,'null',1,1500.00,1500.00,1500.00),(19,26,NULL,'Tomate',1,1050.00,1050.00,1050.00),(20,26,NULL,'Salchichon',1,500.00,500.00,500.00),(21,26,NULL,'Aguacate',1,420.00,420.00,420.00),(22,27,1,'null',1,2185.00,2185.00,2185.00),(23,27,NULL,'Queso',1,560.00,560.00,560.00),(24,28,3,'null',2,500.00,1000.00,1000.00),(25,28,NULL,'Queso',1,470.00,470.00,470.00),(26,29,5,'null',9,1500.00,13500.00,13500.00),(27,30,2,'null',1,100.00,100.00,100.00),(28,30,3,'null',1,3470.00,3470.00,3470.00),(29,31,NULL,'Queso',1,475.00,475.00,475.00),(30,32,NULL,'Pan',1,570.00,570.00,570.00),(31,32,NULL,'Queso Amarillo',1,200.00,200.00,200.00),(32,32,NULL,'Platano',1,100.00,100.00,100.00),(33,33,1,'null',5,2185.00,10925.00,10925.00),(34,34,5,'null',1,1500.00,1500.00,1500.00),(35,35,3,'null',1,3470.00,3470.00,3470.00),(36,35,NULL,'Queso Blanco',1,475.00,475.00,475.00),(37,35,NULL,'Salchichón',1,1000.00,1000.00,1000.00);
 /*!40000 ALTER TABLE `tbdetalleventa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +117,7 @@ CREATE TABLE `tberror` (
   `mensaje` varchar(8000) NOT NULL,
   `fechaHora` datetime NOT NULL,
   PRIMARY KEY (`idError`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +126,7 @@ CREATE TABLE `tberror` (
 
 LOCK TABLES `tberror` WRITE;
 /*!40000 ALTER TABLE `tberror` DISABLE KEYS */;
-INSERT INTO `tberror` VALUES (23,'Table \'dbsales.tbcliente\' doesn\'t exist','2026-01-05 13:14:52');
+INSERT INTO `tberror` VALUES (23,'Table \'dbsales.tbcliente\' doesn\'t exist','2026-01-05 13:14:52'),(24,'You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \')\' at line 1','2026-01-10 09:38:10');
 /*!40000 ALTER TABLE `tberror` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -214,7 +212,7 @@ CREATE TABLE `tbproducto` (
 
 LOCK TABLES `tbproducto` WRITE;
 /*!40000 ALTER TABLE `tbproducto` DISABLE KEYS */;
-INSERT INTO `tbproducto` VALUES (1,'760861000037 ','Café','Presto',1,'Instantáneo 50G',45,2185.00,2185.00,1,_binary ''),(2,'7613287911841','Café','Presto',1,'Instantáneo Unidad',5,100.00,100.00,1,_binary ''),(3,'748366200749','Café','Rey',1,'500G',6,3470.00,3470.00,2,_binary ''),(4,'748366200732','Café','Prestos',1,'240G',22,1020.00,1020.00,2,_binary ''),(5,'070847019848','Monster Energy Ultra','Monster',1,'Monster Energy Ultra 473ML',5,1500.00,1500.00,1,_binary '');
+INSERT INTO `tbproducto` VALUES (1,'760861000037 ','Café','Presto',1,'Instantáneo 50G',39,2185.00,2185.00,1,_binary ''),(2,'7613287911841','Café','Presto',1,'Instantáneo Unidad',4,100.00,100.00,1,_binary ''),(3,'748366200749','Café','Rey',1,'500G',2,3470.00,3470.00,2,_binary ''),(4,'748366200732','Café','Prestos',1,'240G',22,1020.00,1020.00,2,_binary ''),(5,'070847019848','Monster Energy Ultra','Monster',1,'Monster Energy Ultra 473ML',0,1500.00,1500.00,1,_binary '');
 /*!40000 ALTER TABLE `tbproducto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -317,7 +315,7 @@ CREATE TABLE `tbventa` (
   PRIMARY KEY (`idVenta`),
   KEY `FK_VENTA_METODO_PAGO` (`idMetodoPago`),
   CONSTRAINT `FK_VENTA_METODO_PAGO` FOREIGN KEY (`idMetodoPago`) REFERENCES `tbmetodopago` (`idMetodoPago`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -326,9 +324,36 @@ CREATE TABLE `tbventa` (
 
 LOCK TABLES `tbventa` WRITE;
 /*!40000 ALTER TABLE `tbventa` DISABLE KEYS */;
-INSERT INTO `tbventa` VALUES (8,1,'2026-01-09 14:09:26','2',1500.00,1),(9,1,'2026-01-09 14:21:47','1',1500.00,2),(12,1,'2026-01-09 14:26:07','2',3000.00,1),(14,1,'2026-01-09 14:28:41','1',1500.00,2),(17,1,'2026-01-09 14:38:05','1',100.00,1),(18,1,'2026-01-09 14:38:57','1',100.00,1),(22,1,'2026-01-09 14:50:16','1',1020.00,1),(23,1,'2026-01-09 14:52:12','1',1.00,2),(24,1,'2026-01-09 14:52:59','2',1495.00,2),(25,1,'2026-01-09 14:56:06','5',3240.00,1),(26,1,'2026-01-09 15:06:37','4',3470.00,1);
+INSERT INTO `tbventa` VALUES (8,1,'2026-01-09 14:09:26','2',1500.00,1),(9,1,'2026-01-09 14:21:47','1',1500.00,2),(12,1,'2026-01-09 14:26:07','2',3000.00,1),(14,1,'2026-01-09 14:28:41','1',1500.00,2),(17,1,'2026-01-09 14:38:05','1',100.00,1),(18,1,'2026-01-09 14:38:57','1',100.00,1),(22,1,'2026-01-09 14:50:16','1',1020.00,1),(23,1,'2026-01-09 14:52:12','1',1.00,2),(24,1,'2026-01-09 14:52:59','2',1495.00,2),(25,1,'2026-01-09 14:56:06','5',3240.00,1),(26,1,'2026-01-09 15:06:37','4',3470.00,1),(27,1,'2026-01-09 19:08:27','2',2745.00,2),(28,1,'2026-01-09 19:14:08','3',1470.00,1),(29,1,'2026-01-09 19:19:14','9',13500.00,1),(30,1,'2026-01-09 20:11:59','2',3570.00,1),(31,1,'2026-01-10 09:19:52','1',475.00,2),(32,1,'2026-01-10 09:20:39','3',870.00,1),(33,1,'2026-01-10 09:28:36','5',10925.00,1),(34,1,'2026-01-10 09:32:58','1',1500.00,3),(35,1,'2026-01-12 20:11:27','3',4945.00,2);
 /*!40000 ALTER TABLE `tbventa` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'dbsales'
+--
+/*!50106 SET @save_time_zone= @@TIME_ZONE */ ;
+/*!50106 DROP EVENT IF EXISTS `ev_creditos_vencidos` */;
+DELIMITER ;;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;;
+/*!50003 SET character_set_client  = utf8mb4 */ ;;
+/*!50003 SET character_set_results = utf8mb4 */ ;;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;;
+/*!50003 SET @saved_time_zone      = @@time_zone */ ;;
+/*!50003 SET time_zone             = 'SYSTEM' */ ;;
+/*!50106 CREATE*/ /*!50117 DEFINER=`root`@`localhost`*/ /*!50106 EVENT `ev_creditos_vencidos` ON SCHEDULE AT '2026-01-10 10:54:42' ON COMPLETION PRESERVE DISABLE DO BEGIN
+    CALL MarcarCreditosVencidos();
+END */ ;;
+/*!50003 SET time_zone             = @saved_time_zone */ ;;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;;
+/*!50003 SET character_set_results = @saved_cs_results */ ;;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;;
+DELIMITER ;
+/*!50106 SET TIME_ZONE= @save_time_zone */ ;
 
 --
 -- Dumping routines for database 'dbsales'
@@ -740,7 +765,7 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarCreditosVencidos`(
 )
 BEGIN
-	SELECT  nombreCliente
+	SELECT  COUNT(idCredito) AS vencidos
 	FROM tbcredito 
     WHERE idEstadoCredito = 2;
 END ;;
@@ -785,6 +810,33 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ConsultarEmpleadosVentas` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarEmpleadosVentas`()
+BEGIN
+    SELECT 
+        U.nombreCompleto,
+        CURDATE() AS fecha,
+        SUM(V.total) AS totalVendido
+    FROM tbventa V
+    JOIN tbusuario U ON V.idUsuario = U.idUsuario
+    WHERE V.fecha >= CURDATE()
+      AND V.fecha <  CURDATE() + INTERVAL 1 DAY
+    GROUP BY U.nombreCompleto;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `ConsultarMetodoPago` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -821,7 +873,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ConsultarProductoPorCodigo`(
     IN pCodigoBarras VARCHAR(255)
 )
 BEGIN
-    SELECT idProducto, nombre, precio, codigoBarras
+    SELECT idProducto, 
+		   CONCAT_WS(' ', nombre, marca, descripcion) AS nombre, 
+           precio, 
+           codigoBarras
     FROM tbproducto
     WHERE codigoBarras = pCodigoBarras
     AND estado = 1
@@ -1063,6 +1118,97 @@ BEGIN
 	FROM tbventa V
     INNER JOIN tbusuario U ON V.idUsuario = U.idUsuario
     INNER JOIN tbmetodopago M ON V.idMetodoPago = M.idMetodoPago;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `DineroEfectivo` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DineroEfectivo`()
+BEGIN
+    SELECT IFNULL(SUM(total), 0) AS totalEfectivo
+    FROM tbventa
+    WHERE fecha >= CURDATE()
+      AND fecha <  CURDATE() + INTERVAL 1 DAY
+      AND idMetodoPago = 1;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `DineroSimpe` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DineroSimpe`()
+BEGIN
+    SELECT IFNULL(SUM(total), 0) AS totalSimpe
+    FROM tbventa
+    WHERE fecha >= CURDATE()
+      AND fecha <  CURDATE() + INTERVAL 1 DAY
+      AND idMetodoPago = 3;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `DineroTarjeta` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DineroTarjeta`()
+BEGIN
+    SELECT IFNULL(SUM(total), 0) AS totalTarjeta
+    FROM tbventa
+    WHERE fecha >= CURDATE()
+      AND fecha <  CURDATE() + INTERVAL 1 DAY
+      AND idMetodoPago = 2;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `DineroTotal` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DineroTotal`()
+BEGIN
+    SELECT IFNULL(SUM(total), 0) AS total
+    FROM tbventa
+    WHERE fecha >= CURDATE()
+      AND fecha <  CURDATE() + INTERVAL 1 DAY;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1542,6 +1688,58 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `VentasPorMes` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `VentasPorMes`()
+BEGIN
+	SELECT 
+        DATE(fecha) AS dia,
+        SUM(total) AS total
+    FROM tbventa
+    WHERE fecha >= DATE_FORMAT(CURDATE(), '%Y-%m-01')
+      AND fecha <  DATE_ADD(DATE_FORMAT(CURDATE(), '%Y-%m-01'), INTERVAL 1 MONTH)
+    GROUP BY DATE(fecha)
+    ORDER BY dia;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `VentasPorSemana` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `VentasPorSemana`()
+BEGIN
+    SELECT 
+        DATE(fecha) AS dia,
+        SUM(total) AS total
+    FROM tbventa
+    WHERE fecha >= CURDATE() - INTERVAL 6 DAY
+      AND fecha <  CURDATE() + INTERVAL 1 DAY
+    GROUP BY DATE(fecha)
+    ORDER BY dia;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1552,4 +1750,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-09 16:25:49
+-- Dump completed on 2026-01-13  6:57:44
