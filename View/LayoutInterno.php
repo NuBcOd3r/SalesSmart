@@ -74,15 +74,34 @@
             {
                 echo'
                 <li class="nav-item">
-                    <a href="../Dashboard/Dashboard.php" class="nav-link" onclick="setActive(this)">
+                    <a href="../Principal/Home.php" class="nav-link" onclick="setActive(this)">
                         <i class="fas fa-home"></i>
-                        <span>Dashboard</span>
+                        <span>Inicio</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../Dashboard/Reportes.php" class="nav-link" onclick="setActive(this)">
-                        <i class="fas fa-chart-bar"></i>
-                        <span>Reportes</span>
+                    <a href="../Reabastecer/Reabastecer.php" class="nav-link" onclick="setActive(this)">
+                        <i class="fas fa-truck-loading"></i>
+                        <span>Reabastecer</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../Creditos/Creditos.php" class="nav-link" onclick="setActive(this)">
+                        <i class="fas fa-users"></i>
+                        <span>Créditos</span>
+                        <span class="notification-badge">'. $notificaciones.'</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../Principal/Historial.php" class="nav-link" onclick="setActive(this)">
+                        <i class="fas fa-history"></i>
+                        <span>Historial de Ventas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../Dashboard/Dashboard.php" class="nav-link" onclick="setActive(this)">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">

@@ -26,6 +26,11 @@
                 href="ListadoProductosEliminados.php">
                 <i class="fa-solid fa-trash-can me-2"></i>Productos Eliminados
             </a>
+            <button class="btn text-white px-4 btn-custom-primary mt-1"
+                    id="btnAbrirModal">
+                <i class="fa-solid fa-file-pdf me-2"></i>
+                Generar Lista
+            </button>
         </div>
     </div>
 
@@ -51,6 +56,7 @@
                             <th scope="col" class="text-center align-middle">Precio</th>
                             <th scope="col" class="text-center align-middle">Categoría</th>
                             <th scope="col" class="text-center align-middle">Proveedor</th>
+                            <th scope="col" class="text-center align-middle">Seleccionar</th>
                             <th scope="col" class="text-center align-middle">Acciones</th>
                         </tr>
                     </thead>
@@ -116,6 +122,19 @@
                             </td>
 
                             <td class="text-center align-middle">
+
+                                <input type="checkbox"
+                                    class="form-check-input producto-check"
+
+                                    value="'.$producto['idProducto'].'"
+
+                                    data-nombre="'.$producto['nombre'].'"
+                                    data-marca="'.$producto['marca'].'"
+                                    data-descripcion="'.$producto['descripcion'].'">
+
+                            </td>
+
+                            <td class="text-center align-middle">
                                 <div class="action-buttons d-flex justify-content-center gap-3">
 
                                     <a href="ActualizarProducto.php?id='.$producto['idProducto'].'"
@@ -143,6 +162,74 @@
                 </table>
             </div>
         </div>
+    </div>
+
+    <div class="modal fade" id="modalLista" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title">
+                        Generar Lista PDF
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <form id="formListaPDF"
+                        method="POST"
+                        action="../../Controller/PDFController.php"
+                        target="_blank">
+
+                        <div class="table-responsive">
+
+                            <table class="table table-bordered align-middle">
+
+                                <thead class="table-dark">
+
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Marca</th>
+                                        <th>Descripción</th>
+                                        <th width="120">Cantidad</th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="contenedorProductos"></tbody>
+
+                            </table>
+
+                        </div>
+
+                        <div class="text-end mt-3">
+
+                            <button type="submit"
+                                    class="btn btn-danger">
+
+                                <i class="fa-solid fa-file-pdf me-2"></i>
+                                Generar PDF
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
     <?php ShowJS() ?>

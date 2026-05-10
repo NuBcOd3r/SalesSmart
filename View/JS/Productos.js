@@ -95,3 +95,92 @@ function abrirModalReabastecer(id, nombre, stock) {
     let modal = new bootstrap.Modal(document.getElementById('modalReabastecer'));
     modal.show();
 }
+
+document.getElementById("btnAbrirModal")
+.addEventListener("click", function () {
+
+    let checks = document.querySelectorAll(".producto-check:checked");
+
+    let contenedor = document.getElementById("contenedorProductos");
+
+    contenedor.innerHTML = "";
+
+    if (checks.length === 0)
+    {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Atención',
+            text: 'Debe seleccionar al menos un producto'
+        });
+
+        return;
+    }
+
+    checks.forEach(check => {
+
+        let id = check.value;
+
+        let nombre = check.dataset.nombre;
+        let marca = check.dataset.marca;
+        let descripcion = check.dataset.descripcion;
+
+        contenedor.innerHTML += `
+        
+            <tr>
+
+                <td>
+                    ${nombre}
+
+                    <input type="hidden"
+                        name="productos[]"
+                        value="${id}">
+
+                    <input type="hidden"
+                        name="nombres[]"
+                        value="${nombre}">
+
+                </td>
+
+                <td>
+
+                    ${marca}
+
+                    <input type="hidden"
+                        name="marcas[]"
+                        value="${marca}">
+
+                </td>
+
+                <td>
+
+                    ${descripcion}
+
+                    <input type="hidden"
+                        name="descripciones[]"
+                        value="${descripcion}">
+
+                </td>
+
+                <td>
+
+                    <input type="number"
+                        class="form-control"
+                        name="cantidades[]"
+                        min="1"
+                        value="1"
+                        required>
+
+                </td>
+
+            </tr>
+
+        `;
+    });
+
+    let modal = new bootstrap.Modal(
+        document.getElementById('modalLista')
+    );
+
+    modal.show();
+
+});
